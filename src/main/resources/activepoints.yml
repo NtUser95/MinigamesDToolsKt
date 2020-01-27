@@ -1,0 +1,87 @@
+meta_info:
+  pool_id: active_point
+data:
+  example_sphereactivepoint:
+    creator_id: default_activepoint_factory
+    type: primitive_block_point
+    params:
+      is_damagable: false
+      form: sphere
+      hollow: true
+      filler_material: DIRT
+      border_material: GLASS
+      radius: 5
+      health: 20
+      location:
+        x: -120
+        y: 70
+        z: 200
+        world: world
+        direction: WEST
+    behaviors:
+    - example_first_behavior
+    reactions:
+      check_intersect:
+        enabled: true
+        reactions_handler:
+        - example_r
+      check_damage:
+        enabled: true
+        reactions_handler:
+        - example_r
+  example_squareactivepoint:
+    creator_id: default_activepoint_factory
+    type: primitive_block_point
+    params:
+      is_damagable: false
+      form: square
+      hollow: false
+      filler_material: STONE
+      border_material: GRASS
+      radius: 5
+      health: 20
+      location:
+        x: -130
+        y: 70
+        z: 210
+        world: world
+        direction: WEST
+    behaviors:
+    - example_first_behavior
+    reactions:
+      check_intersect:
+        enabled: true
+        reactions_handler:
+        - example_r
+      check_damage:
+        enabled: true
+        reactions_handler:
+        - example_r
+  example_livingentity:
+    creator_id: default_activepoint_factory
+    type: living_entity
+    params:
+      health: 20
+      is_damagable: false
+      type: sky_dragon
+      move_paths:
+      - '-150:70:230'
+      - '-160:75:240'
+      - '-170:80:245'
+      location:
+        x: -140
+        y: 70
+        z: 220
+        world: world
+        direction: WEST
+    behaviors:
+    - example_first_behavior
+    reactions:
+      check_intersect:
+        enabled: true
+        reactions_handler:
+        - example_r
+      check_damage:
+        enabled: true
+        reactions_handler:
+        - example_r

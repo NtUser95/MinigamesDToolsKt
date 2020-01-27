@@ -1,0 +1,12 @@
+meta_info:
+  pool_id: hotbar
+data:
+  ExampleHeldHotbar:
+    creator_id: held_hotbar
+    slots:
+      0: ExampleItem
+ExampleLobbyHotbar:
+           creator_id: interract_hotbar
+           slots:
+             0: ExampleItem
+             1: ExampleGun

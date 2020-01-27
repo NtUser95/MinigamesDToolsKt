@@ -1,0 +1,5 @@
+meta_info:
+  pool_id: inventory_gui
+data:
+  firstInventory:
+    creator_id: default_view_inventory

@@ -1,0 +1,17 @@
+meta_info:
+  pool_id: hotbar_slots
+data:
+  ExampleItem:
+    creator_id: example_item
+    active_icon: WOOL
+    unactive_icon: GLASS
+    cooldown: 1
+    infinite: true
+    amount: 1
+  ExampleGun:
+    creator_id: example_gun
+    active_icon: DIAMOND_HOE
+    unactive_icon: WODDEN_HOE
+    cooldown: 500
+    infinite: true
+    amount: 1

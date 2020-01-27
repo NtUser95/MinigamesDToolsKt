@@ -1,0 +1,14 @@
+meta_info:
+  pool_id: main
+data:
+  minigamesdtools:
+    broadcaster:
+      enabled: true
+      delay: 40
+    prefix: '&4[&6&lArena&4]&r '
+    debug: false
+    start_lobby:
+      move_on_server_join: true
+      id: example_lobby
+    geoip:
+      key: KEY_CODE
