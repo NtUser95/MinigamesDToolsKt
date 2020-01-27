@@ -1,7 +1,5 @@
 package com.gmail.borlandlp.minigamesdtools;
 
-import com.gmail.borlandlp.minigamesdtools.Debug;
-import com.gmail.borlandlp.minigamesdtools.MinigamesDTools;
 import com.gmail.borlandlp.minigamesdtools.activepoints.behaviors.custom.ExampleBehaviorCreator;
 import com.gmail.borlandlp.minigamesdtools.activepoints.reaction.custom.ItemGiveReactionCreator;
 import com.gmail.borlandlp.minigamesdtools.activepoints.reaction.custom.TeamIncrementWinTicketsReactionCreator;
@@ -81,6 +79,7 @@ public class DefaultCreatorsLoader {
         }
     }
 
+    // TODO: getCreatorHub(HeldHotbarCreator.class) as HeldHotbarCreator with generics
     public void load() {
         Debug.print(Debug.LEVEL.NOTICE, "###########################################");
         Debug.print(Debug.LEVEL.NOTICE, "########### load code for tests ###########");

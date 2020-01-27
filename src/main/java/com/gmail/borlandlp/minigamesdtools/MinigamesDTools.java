@@ -117,6 +117,7 @@ public class MinigamesDTools extends JavaPlugin {
         configLoader.addPath(this.getDataFolder());
         configLoader.addPath(ConfigPath.ARENA_FOLDER.getPath());
 
+        // TODO: getCreatorHub(HeldHotbarCreator.class) as HeldHotbarCreator with generics
         this.guiCreatorHub = new GUICreatorHub();
         this.hotbarCreatorHub = new HotbarCreatorHub();
         this.hotbarItemCreatorHub = new HotbarItemCreatorHub();
@@ -229,6 +230,7 @@ public class MinigamesDTools extends JavaPlugin {
       return this.arenaAPI;
     }
 
+    // TODO: getCreatorHub(HeldHotbarCreator.class) as HeldHotbarCreator with generics
     public ConfigProvider getConfigProvider()
     {
       return this.configManager;
