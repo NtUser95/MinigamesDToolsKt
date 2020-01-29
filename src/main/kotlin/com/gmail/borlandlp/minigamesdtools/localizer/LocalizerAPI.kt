@@ -1,25 +1,23 @@
-package com.gmail.borlandlp.minigamesdtools.localizer;
+package com.gmail.borlandlp.minigamesdtools.localizer
 
-import org.bukkit.entity.Player;
-
-import java.util.UUID;
+import java.util.*
 
 /**
  * Компонент, хранящий языковые настройки игрока, а также отвечающий за хранение локализованного текста.
  */
-public interface LocalizerAPI {
+interface LocalizerAPI {
     /**
      * Устанавливает лвухзначное представление языка.
      * @param uuid
      */
-    void setLanguage(UUID uuid, String langCode);
+    fun setLanguage(uuid: UUID, langCode: String)
 
     /**
      * @param uuid
      * @return Двузначное представление языка. en, ru, de
      */
-    String getLanguage(UUID uuid);
+    fun getLanguage(uuid: UUID): String
 
-    String getLocalizedText(UUID uuid, String textId);
-    String getLocalizedText(String langCode, String textId);
+    fun getLocalizedText(uuid: UUID, textId: String): String?
+    fun getLocalizedText(langCode: String, textId: String): String?
 }

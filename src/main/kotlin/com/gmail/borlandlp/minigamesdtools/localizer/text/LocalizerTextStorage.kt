@@ -1,19 +1,19 @@
-package com.gmail.borlandlp.minigamesdtools.localizer.text;
+package com.gmail.borlandlp.minigamesdtools.localizer.text
 
-public interface LocalizerTextStorage {
+interface LocalizerTextStorage {
     /**
      * Проверяет, содержит ли текст для textId
      * @param textId идентификатор текста
      * @return true/false
      */
-    boolean containsText(String textId);
+    fun containsText(textId: String): Boolean
 
     /**
      * Возвращает текст для textId
      * @param textId
      * @return
      */
-    String getText(String textId);
+    fun getText(textId: String): String?
 
-    String getLangCode();
+    val langCode: String?
 }
