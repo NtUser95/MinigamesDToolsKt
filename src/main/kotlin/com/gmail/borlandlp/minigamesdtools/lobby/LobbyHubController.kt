@@ -12,8 +12,8 @@ import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
-import java.util.*
 import java.util.function.Consumer
+import kotlin.collections.ArrayList
 
 class LobbyHubController : APIComponent, LobbyServerAPI {
     private val lobbies: MutableList<ServerLobby> = ArrayList()
@@ -119,10 +119,6 @@ class LobbyHubController : APIComponent, LobbyServerAPI {
     override fun onUnload() {
         task!!.cancel()
         HandlerList.unregisterAll(lobbyListener)
-        ArrayList(lobbies).forEach(Consumer { l: ServerLobby ->
-            unregister(
-                l
-            )
-        })
+        lobbies.toMutableList().forEach(Consumer(this::unregister))
     }
 }

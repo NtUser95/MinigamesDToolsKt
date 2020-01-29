@@ -9,6 +9,7 @@ import java.util.*
 class BulletHandler : BulletHandlerApi {
     private val bullets: MutableList<GhostBullet> = ArrayList()
     private var task: BukkitTask? = null
+
     override fun addBullet(bullet: GhostBullet) {
         bullets.add(bullet)
     }
