@@ -1,49 +1,52 @@
-package com.gmail.borlandlp.minigamesdtools.database;
+package com.gmail.borlandlp.minigamesdtools.database
 
-import com.gmail.borlandlp.minigamesdtools.APIComponent;
-import com.gmail.borlandlp.minigamesdtools.MinigamesDTools;
-import com.gmail.borlandlp.minigamesdtools.database.tables.Account;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
+import com.gmail.borlandlp.minigamesdtools.APIComponent
+import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
+import com.gmail.borlandlp.minigamesdtools.database.tables.Account
+import com.j256.ormlite.dao.Dao
+import com.j256.ormlite.dao.DaoManager
+import com.j256.ormlite.jdbc.JdbcConnectionSource
+import com.j256.ormlite.support.ConnectionSource
+import com.j256.ormlite.table.TableUtils
+import java.io.File
+import java.io.IOException
+import java.sql.SQLException
+import java.util.logging.Level
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-
-public class ExampleDatabaseInteraction implements APIComponent {
-    private ConnectionSource connectionSource;
-
-    @Override
-    public void onLoad() {
-        File dataFolder = new File(MinigamesDTools.Companion.getInstance().getDataFolder(),  "test.db");
+class ExampleDatabaseInteraction : APIComponent {
+    private var connectionSource: ConnectionSource? = null
+    override fun onLoad() {
+        val dataFolder = File(instance!!.dataFolder, "test.db")
         if (!dataFolder.exists()) {
             try {
-                dataFolder.createNewFile();
-            } catch (IOException e) {
-                MinigamesDTools.Companion.getInstance().getLogger().log(Level.SEVERE, "File write error: " + "test.db");
+                dataFolder.createNewFile()
+            } catch (e: IOException) {
+                instance!!.logger
+                    .log(Level.SEVERE, "File write error: " + "test.db")
             }
         }
-
-        String databaseUrl = "jdbc:sqlite:" + dataFolder.getAbsolutePath();
+        val databaseUrl = "jdbc:sqlite:" + dataFolder.absolutePath
         try {
-            this.connectionSource = new JdbcConnectionSource(databaseUrl);
-            Dao<Account, String> accountDao = DaoManager.createDao(connectionSource, Account.class);
-            TableUtils.createTable(connectionSource, Account.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            connectionSource = JdbcConnectionSource(databaseUrl)
+            val accountDao =
+                DaoManager.createDao<Dao<Account, String>, Account>(
+                    connectionSource,
+                    Account::class.java
+                )
+            TableUtils.createTable(
+                connectionSource,
+                Account::class.java
+            )
+        } catch (e: SQLException) {
+            e.printStackTrace()
         }
     }
 
-    @Override
-    public void onUnload() {
+    override fun onUnload() {
         try {
-            this.connectionSource.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            connectionSource!!.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
