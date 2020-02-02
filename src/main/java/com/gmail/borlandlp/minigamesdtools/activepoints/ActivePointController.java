@@ -37,10 +37,10 @@ public class ActivePointController implements APIComponent, ActivePointsAPI {
         // load default activepoints
         List<ConfigEntity> poolContents = MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(ConfigPath.ACTIVE_POINT);
         for(ConfigEntity configEntity : poolContents) {
-            Debug.print(Debug.LEVEL.NOTICE,"[ActivePointController] load activePoint " + configEntity.getID());
+            Debug.print(Debug.LEVEL.NOTICE,"[ActivePointController] load activePoint " + configEntity.getId());
             ActivePoint activePoint = null;
             try {
-                activePoint = MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub().createActivePoint(configEntity.getID(), new DataProvider());
+                activePoint = MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub().createActivePoint(configEntity.getId(), new DataProvider());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,7 +48,7 @@ public class ActivePointController implements APIComponent, ActivePointsAPI {
             if(activePoint != null) {
                 this.registerPoint(activePoint);
             } else {
-                Debug.print(Debug.LEVEL.WARNING,"[ActivePointController] fail on load activePoint " + configEntity.getID());
+                Debug.print(Debug.LEVEL.WARNING,"[ActivePointController] fail on load activePoint " + configEntity.getId());
             }
         }
     }

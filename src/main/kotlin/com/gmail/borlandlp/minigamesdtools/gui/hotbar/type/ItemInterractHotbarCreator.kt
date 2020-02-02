@@ -9,7 +9,6 @@ import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
 import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar
 import com.gmail.borlandlp.minigamesdtools.gui.hotbar.items.SlotItem
 import org.bukkit.entity.Player
-import java.util.*
 
 @CreatorInfo(creatorId = "interract_hotbar")
 class ItemInterractHotbarCreator : Creator {

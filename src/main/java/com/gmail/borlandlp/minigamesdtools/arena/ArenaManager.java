@@ -31,7 +31,7 @@ public class ArenaManager implements APIComponent, ArenaAPI {
     public void onLoad() {
         ArenaBase arena = null;
         for(ConfigEntity configEntity : MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(ConfigPath.ARENA_FOLDER)) {
-            this.registerToLoad(configEntity.getID());
+            this.registerToLoad(configEntity.getId());
         }
 
         for (String arenaName : this.reg2Load) {

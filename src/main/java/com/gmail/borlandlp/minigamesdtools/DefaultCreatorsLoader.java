@@ -66,14 +66,14 @@ public class DefaultCreatorsLoader {
     private void linkCreators(ConfigPath path) {
         List<ConfigEntity> keys = MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(path);
         for(ConfigEntity configEntity : keys) {
-            ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(path, configEntity.getID()).getData();
+            ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(path, configEntity.getId()).getData();
             try {
                 CreatorHub creatorHub = this.hubs.get(path);
-                String configEntityId = configEntity.getID();
+                String configEntityId = configEntity.getId();
                 String creatorId = conf.get("creator_id").toString();
                 creatorHub.registerRouteId2Creator(configEntityId, creatorId);
             } catch (Exception e) {
-                Debug.print(Debug.LEVEL.WARNING, "Error while link creator: " + configEntity.getID());
+                Debug.print(Debug.LEVEL.WARNING, "Error while link creator: " + configEntity.getId());
                 e.printStackTrace();
             }
         }
