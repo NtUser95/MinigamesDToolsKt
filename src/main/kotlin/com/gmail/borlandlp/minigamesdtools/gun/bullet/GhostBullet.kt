@@ -26,7 +26,7 @@ class GhostBullet(private val bukkitWorld: World) : EntityDragonFireball((bukkit
             Debug.LEVEL.NOTICE,
             "GhostBullet explode"
         )
-        MinigamesDTools.getInstance().bulletHandlerApi.removeBullet(this)
+        MinigamesDTools.instance!!.bulletHandlerApi!!.removeBullet(this)
         if (position.entity == null || !position.entity.s(shooter)) {
             if (!craftWorld.isClientSide) {
                 val var2: List<EntityLiving> =
@@ -43,7 +43,14 @@ class GhostBullet(private val bukkitWorld: World) : EntityDragonFireball((bukkit
                     val hitBlock =
                         bukkitWorld.getBlockAt(blockposition.x, blockposition.y, blockposition.z)
                     val livingEntity = shooter.bukkitEntity as LivingEntity
-                    Bukkit.getPluginManager().callEvent(BlockDamageByEntityEvent(livingEntity, hitBlock, null, true))
+                    Bukkit.getPluginManager().callEvent(
+                        BlockDamageByEntityEvent(
+                            livingEntity,
+                            hitBlock,
+                            null,
+                            true
+                        )
+                    )
                 }
                 die()
             }

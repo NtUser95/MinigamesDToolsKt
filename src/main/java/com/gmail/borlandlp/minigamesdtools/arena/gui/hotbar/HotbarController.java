@@ -4,9 +4,7 @@ import com.gmail.borlandlp.minigamesdtools.MinigamesDTools;
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaComponent;
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaEventListener;
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaPhaseComponent;
-import com.gmail.borlandlp.minigamesdtools.arena.team.ExampleTeam;
 import com.gmail.borlandlp.minigamesdtools.arena.team.TeamProvider;
-import com.gmail.borlandlp.minigamesdtools.creator.AbstractDataProvider;
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider;
 import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar;
 import org.bukkit.entity.Player;
@@ -36,7 +34,7 @@ public class HotbarController extends ArenaComponent implements ArenaPhaseCompon
 
     public Hotbar buildDefaultHotbarFor(Player player) throws Exception {
         String hotbarID = this.getDefaultHotbarId();
-        return MinigamesDTools.getInstance().getHotbarCreatorHub().createHotbar(hotbarID, new DataProvider() {{
+        return MinigamesDTools.Companion.getInstance().getHotbarCreatorHub().createHotbar(hotbarID, new DataProvider() {{
             this.set("player", player);
         }});
     }
@@ -48,7 +46,7 @@ public class HotbarController extends ArenaComponent implements ArenaPhaseCompon
         }
 
         this.listener = new HotbarListener(this);
-        MinigamesDTools.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.getInstance());
+        MinigamesDTools.Companion.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.Companion.getInstance());
         try {
             this.getArena().getEventAnnouncer().register((ArenaEventListener) this.listener);
         } catch (Exception e) {
@@ -69,7 +67,7 @@ public class HotbarController extends ArenaComponent implements ArenaPhaseCompon
                 }
 
                 try {
-                    MinigamesDTools.getInstance().getHotbarAPI().bindHotbar(this.buildDefaultHotbarFor(player), player);
+                    MinigamesDTools.Companion.getInstance().getHotbarAPI().bindHotbar(this.buildDefaultHotbarFor(player), player);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,7 +84,7 @@ public class HotbarController extends ArenaComponent implements ArenaPhaseCompon
         for (TeamProvider team : this.getArena().getTeamController().getTeams()) {
             for (Player player : team.getPlayers()) {
                 if(player != null) {
-                    MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(player);
+                    MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(player);
                 }
             }
         }

@@ -24,11 +24,11 @@ public class ExampleStarterLobby extends ArenaLobby implements StarterLobby {
         Debug.print(Debug.LEVEL.NOTICE, "Player[name:" + player.getName() + "] added to StarterLobby");
         this.playerList.add(player);
 
-        if(MinigamesDTools.getInstance().getHotbarAPI().isBindedPlayer(player)) {
-            MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(player);
+        if(MinigamesDTools.Companion.getInstance().getHotbarAPI().isBindedPlayer(player)) {
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(player);
         }
         if(this.isHotbarEnabled()) {
-            MinigamesDTools.getInstance().getHotbarAPI().bindHotbar(this.getHotbarFor(player), player);
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().bindHotbar(this.getHotbarFor(player), player);
         }
     }
 
@@ -37,11 +37,11 @@ public class ExampleStarterLobby extends ArenaLobby implements StarterLobby {
         Debug.print(Debug.LEVEL.NOTICE, "Player[name:" + player.getName() + "] removed from StarterLobby");
         this.playerList.remove(player);
         if(this.isHotbarEnabled()) {
-            MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(player);
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(player);
         }
         if(this.getTeamProvider().getArena().getHotbarController().isEnabled()) {
             try {
-                MinigamesDTools.getInstance().getHotbarAPI().bindHotbar(this.getTeamProvider().getArena().getHotbarController().buildDefaultHotbarFor(player), player);
+                MinigamesDTools.Companion.getInstance().getHotbarAPI().bindHotbar(this.getTeamProvider().getArena().getHotbarController().buildDefaultHotbarFor(player), player);
             } catch (Exception e) {
                 e.printStackTrace();
             }

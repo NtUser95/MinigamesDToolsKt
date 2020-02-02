@@ -40,7 +40,7 @@ public class ScheduleTaskWrapper {
             public void run() {
                 behavior.tick();
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), this.getDelay(), this.getPeriod());
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), this.getDelay(), this.getPeriod());
     }
 
     public void stop() {

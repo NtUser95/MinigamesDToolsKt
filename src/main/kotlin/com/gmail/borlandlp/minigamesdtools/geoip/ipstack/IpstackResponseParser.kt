@@ -18,7 +18,7 @@ class IpstackResponseParser(private val jsonObject: JSONObject) {
         geoData.locGeonameId = locSection!!["geoname_id"] as String?
         geoData.locCapital = locSection["capital"] as String?
         val langSection = locSection["languages"] as JSONArray?
-        var langObj: JSONObject? = null
+        var langObj: JSONObject?
         for (i in langSection!!.indices) {
             langObj = langSection[i] as JSONObject?
             val langData = LangData

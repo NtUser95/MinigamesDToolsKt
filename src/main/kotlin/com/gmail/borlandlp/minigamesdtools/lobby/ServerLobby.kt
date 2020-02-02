@@ -56,7 +56,7 @@ abstract class ServerLobby {
     private fun applyHotbar(player: Player): Boolean {
         var hotbar: Hotbar? = null
         try {
-            hotbar = MinigamesDTools.getInstance().hotbarCreatorHub
+            hotbar = MinigamesDTools.instance!!.hotbarCreatorHub!!
                 .createHotbar(hotbarID, object : DataProvider() {
                     init {
                         this["player"] = player
@@ -73,7 +73,7 @@ abstract class ServerLobby {
             )
             return false
         } else {
-            MinigamesDTools.getInstance().hotbarAPI.bindHotbar(hotbar, player)
+            MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
         }
         return true
     }
@@ -109,7 +109,7 @@ abstract class ServerLobby {
         )
         if (hotbarID != null) {
             try {
-                MinigamesDTools.getInstance().hotbarAPI.unbindHotbar(p) // TODO: Refactor
+                MinigamesDTools.instance!!.hotbarAPI!!.unbindHotbar(p) // TODO: Refactor
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 return false

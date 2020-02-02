@@ -5,8 +5,6 @@ import com.gmail.borlandlp.minigamesdtools.MinigamesDTools;
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaEventListener;
 import com.gmail.borlandlp.minigamesdtools.arena.localevent.*;
 import com.gmail.borlandlp.minigamesdtools.arena.team.lobby.ArenaLobby;
-import com.gmail.borlandlp.minigamesdtools.creator.DataProvider;
-import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar;
 import org.bukkit.entity.Player;
 
 public class ExampleTeamListener implements ArenaEventListener {
@@ -61,7 +59,7 @@ public class ExampleTeamListener implements ArenaEventListener {
             player.getInventory().clear();
             team.removePlayer(player);
         }
-        MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(event.getPlayer());
+        MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(event.getPlayer());
     }
 
     @ArenaEventHandler(

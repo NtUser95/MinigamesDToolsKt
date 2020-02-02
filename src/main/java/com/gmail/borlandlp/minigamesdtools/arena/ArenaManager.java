@@ -11,7 +11,6 @@ import com.gmail.borlandlp.minigamesdtools.arena.exceptions.ArenaAlreadyAddedExc
 import com.gmail.borlandlp.minigamesdtools.arena.exceptions.ArenaAlreadyInitializedException;
 import com.gmail.borlandlp.minigamesdtools.arena.localevent.ArenaPlayerJoinLocalEvent;
 import com.gmail.borlandlp.minigamesdtools.arena.localevent.ArenaPlayerLeaveLocalEvent;
-import com.gmail.borlandlp.minigamesdtools.party.MgParty;
 import com.gmail.borlandlp.minigamesdtools.arena.team.TeamController;
 import com.gmail.borlandlp.minigamesdtools.arena.team.TeamProvider;
 import com.gmail.borlandlp.minigamesdtools.conditions.PlayerCheckResult;
@@ -31,13 +30,13 @@ public class ArenaManager implements APIComponent, ArenaAPI {
     @Override
     public void onLoad() {
         ArenaBase arena = null;
-        for(ConfigEntity configEntity : MinigamesDTools.getInstance().getConfigProvider().getPoolContents(ConfigPath.ARENA_FOLDER)) {
+        for(ConfigEntity configEntity : MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(ConfigPath.ARENA_FOLDER)) {
             this.registerToLoad(configEntity.getID());
         }
 
         for (String arenaName : this.reg2Load) {
             try {
-                arena = MinigamesDTools.getInstance().getArenaCreatorHub().createArena(arenaName, new DataProvider());
+                arena = MinigamesDTools.Companion.getInstance().getArenaCreatorHub().createArena(arenaName, new DataProvider());
                 try {
                     arena.initializeComponents();
                 } catch (ArenaAlreadyInitializedException e) {
@@ -47,7 +46,7 @@ public class ArenaManager implements APIComponent, ArenaAPI {
                 this.addArena(arena);
                 Debug.print(Debug.LEVEL.NOTICE, "successful load arena '" + arenaName + "'");
             } catch(Exception ex) {
-                MinigamesDTools.getInstance().getLogger().log(Level.WARNING, " failed to load arena " + arenaName);
+                MinigamesDTools.Companion.getInstance().getLogger().log(Level.WARNING, " failed to load arena " + arenaName);
                 ex.printStackTrace();
             }
         }
@@ -82,7 +81,7 @@ public class ArenaManager implements APIComponent, ArenaAPI {
         this.mArenas.remove(name);
         ArenaBase newInstance = null;
         try {
-            newInstance = MinigamesDTools.getInstance().getArenaCreatorHub().createArena(name, new DataProvider());
+            newInstance = MinigamesDTools.Companion.getInstance().getArenaCreatorHub().createArena(name, new DataProvider());
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -173,7 +172,7 @@ public class ArenaManager implements APIComponent, ArenaAPI {
     public boolean arenaJoinRequest(String arenaName, Party party) {
         ArenaBase arenaBase = this.getArena(arenaName);
         if(arenaBase == null) {
-            party.getLeader().sendMessage(MinigamesDTools.getPrefix() + " Arena " + arenaName + " does not exist.");
+            party.getLeader().sendMessage(MinigamesDTools.Companion.getPrefix() + " Arena " + arenaName + " does not exist.");
             return false;
         }
 
@@ -214,7 +213,7 @@ public class ArenaManager implements APIComponent, ArenaAPI {
     public boolean arenaJoinRequest(String arenaName, Player player) {
         ArenaBase arenaBase = this.getArena(arenaName);
         if(arenaBase == null) {
-            player.sendMessage(MinigamesDTools.getPrefix() + " Arena " + arenaName + " does not exist.");
+            player.sendMessage(MinigamesDTools.Companion.getPrefix() + " Arena " + arenaName + " does not exist.");
             return false;
         }
 

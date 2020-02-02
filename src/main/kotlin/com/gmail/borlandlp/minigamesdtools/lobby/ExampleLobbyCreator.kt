@@ -17,7 +17,7 @@ class ExampleLobbyCreator : Creator {
     @Throws(Exception::class)
     override fun create(ID: String, dataProvider: AbstractDataProvider): Any {
         val conf =
-            MinigamesDTools.getInstance().configProvider.getEntity(ConfigPath.SERVER_LOBBY, ID).data
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.SERVER_LOBBY, ID).data
                 ?: throw Exception("Cant find config for $ID")
         val serverLobby: ServerLobby = ExampleServerLobby()
         serverLobby.hotbarID = if (conf.contains("hotbar_id")) conf["hotbar_id"].toString() else null

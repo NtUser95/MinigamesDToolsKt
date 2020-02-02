@@ -22,7 +22,7 @@ public class TeamIncrementWinTicketsReactionCreator implements Creator {
     @Override
     public Reaction create(String ID, AbstractDataProvider dataProvider) throws Exception {
         TeamIncrementWinTicketsReaction reaction = new TeamIncrementWinTicketsReaction();
-        ConfigurationSection configurationSection = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_REACTIONS, ID).getData();
+        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_REACTIONS, ID).getData();
         reaction.setActivePoint((ActivePoint) dataProvider.get("active_point_instance"));
         reaction.setValue(Integer.parseInt(configurationSection.get("value").toString()));
 

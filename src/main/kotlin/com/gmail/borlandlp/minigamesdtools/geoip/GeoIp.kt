@@ -26,7 +26,7 @@ class GeoIp : GeoIpApi, APIComponent {
 
     override fun onLoad() {
         val config =
-            MinigamesDTools.getInstance().configProvider.getEntity(ConfigPath.MAIN, "minigamesdtools").data
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.MAIN, "minigamesdtools").data
         apiKey = config.getString("geoip.key")
     }
 

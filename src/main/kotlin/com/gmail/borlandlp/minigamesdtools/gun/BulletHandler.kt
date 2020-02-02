@@ -24,7 +24,7 @@ class BulletHandler : BulletHandlerApi {
             override fun run() {
                 task.update()
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 0, 1)
+        }.runTaskTimer(MinigamesDTools.instance, 0, 1)
     }
 
     override fun onUnload() {

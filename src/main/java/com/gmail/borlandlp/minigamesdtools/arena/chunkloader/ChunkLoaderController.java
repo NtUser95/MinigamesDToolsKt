@@ -32,7 +32,7 @@ public class ChunkLoaderController extends ArenaComponent implements ArenaPhaseC
     @Override
     public void onInit() {
         this.listener = new ChunksListener(this);
-        MinigamesDTools.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.getInstance());
+        MinigamesDTools.Companion.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.Companion.getInstance());
         for (ArenaPhaseComponent component : this.getLoaders().values()) {
             this.getArena().getPhaseComponentController().register(component);
         }

@@ -2,7 +2,6 @@ package com.gmail.borlandlp.minigamesdtools.activepoints;
 
 import com.gmail.borlandlp.minigamesdtools.events.BlockDamageByEntityEvent;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,7 +12,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class ActivePointsListener implements Listener {

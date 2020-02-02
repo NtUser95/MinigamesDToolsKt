@@ -68,18 +68,18 @@ class LobbyHubController : APIComponent, LobbyServerAPI {
             override fun run() {
                 task.doWork()
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 0, 20)
+        }.runTaskTimer(MinigamesDTools.instance, 0, 20)
         lobbyListener = LobbyHubListener(this)
-        Bukkit.getServer().pluginManager.registerEvents(lobbyListener, MinigamesDTools.getInstance())
+        Bukkit.getServer().pluginManager.registerEvents(lobbyListener, MinigamesDTools.instance)
         //load all serverLobby
-        for (configEntity in MinigamesDTools.getInstance().configProvider.getPoolContents(ConfigPath.SERVER_LOBBY)) {
+        for (configEntity in MinigamesDTools.instance!!.configProvider!!.getPoolContents(ConfigPath.SERVER_LOBBY)) {
             if (configEntity.data["enabled"].toString() == "true") try {
                 Debug.print(
                     Debug.LEVEL.NOTICE,
                     "Load ServerLobby[ID:" + configEntity.id + "]"
                 )
                 register(
-                    MinigamesDTools.getInstance().lobbyCreatorHub.createLobby(
+                    MinigamesDTools.instance!!.lobbyCreatorHub!!.createLobby(
                         configEntity.id,
                         DataProvider()
                     )
@@ -91,7 +91,7 @@ class LobbyHubController : APIComponent, LobbyServerAPI {
         // set default serverLobby
         var conf: ConfigurationSection? = null
         try {
-            conf = MinigamesDTools.getInstance().configProvider.getEntity(ConfigPath.MAIN, "minigamesdtools")
+            conf = MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.MAIN, "minigamesdtools")
                 .data
         } catch (e: Exception) {
             e.printStackTrace()

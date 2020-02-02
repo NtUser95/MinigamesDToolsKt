@@ -24,9 +24,9 @@ public class ConfigUtils {
 
     public static void restoreResource2Config(String configName) {
         try {
-            Reader defConfigStream = new InputStreamReader(MinigamesDTools.getInstance().getResource(configName), StandardCharsets.UTF_8);
+            Reader defConfigStream = new InputStreamReader(MinigamesDTools.Companion.getInstance().getResource(configName), StandardCharsets.UTF_8);
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-            defConfig.save(new File(MinigamesDTools.getInstance().getDataFolder().getAbsoluteFile(), configName));
+            defConfig.save(new File(MinigamesDTools.Companion.getInstance().getDataFolder().getAbsoluteFile(), configName));
         } catch(Exception ex) {
             Debug.print(Debug.LEVEL.WARNING, "An error occurred while restoring file:'" + configName + "'");
             ex.printStackTrace();

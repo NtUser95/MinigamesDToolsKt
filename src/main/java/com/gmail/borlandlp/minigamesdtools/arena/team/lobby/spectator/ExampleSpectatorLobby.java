@@ -30,7 +30,7 @@ public class ExampleSpectatorLobby extends ArenaLobby implements SpectatorLobby,
     @Override
     public void onInit() {
         this.listener = new ExampleSpectatorLobbyListener(this);
-        Bukkit.getServer().getPluginManager().registerEvents((Listener) this.listener, MinigamesDTools.getInstance());
+        Bukkit.getServer().getPluginManager().registerEvents((Listener) this.listener, MinigamesDTools.Companion.getInstance());
     }
 
     @Override
@@ -72,11 +72,11 @@ public class ExampleSpectatorLobby extends ArenaLobby implements SpectatorLobby,
         player.teleport(this.getSpawnPoint());
         this.players.add(player);
 
-        if(MinigamesDTools.getInstance().getHotbarAPI().isBindedPlayer(player)) {
-            MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(player);
+        if(MinigamesDTools.Companion.getInstance().getHotbarAPI().isBindedPlayer(player)) {
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(player);
         }
         if(this.isHotbarEnabled()) {
-            MinigamesDTools.getInstance().getHotbarAPI().bindHotbar(this.getHotbarFor(player), player);
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().bindHotbar(this.getHotbarFor(player), player);
         }
     }
 
@@ -89,11 +89,11 @@ public class ExampleSpectatorLobby extends ArenaLobby implements SpectatorLobby,
         player.setGameMode(GameMode.SURVIVAL);*/
 
         if(this.isHotbarEnabled()) {
-            MinigamesDTools.getInstance().getHotbarAPI().unbindHotbar(player);
+            MinigamesDTools.Companion.getInstance().getHotbarAPI().unbindHotbar(player);
         }
         if(this.getTeamProvider().getArena().getHotbarController().isEnabled()) {
             try {
-                MinigamesDTools.getInstance().getHotbarAPI().bindHotbar(this.getTeamProvider().getArena().getHotbarController().buildDefaultHotbarFor(player), player);
+                MinigamesDTools.Companion.getInstance().getHotbarAPI().bindHotbar(this.getTeamProvider().getArena().getHotbarController().buildDefaultHotbarFor(player), player);
             } catch (Exception e) {
                 e.printStackTrace();
             }

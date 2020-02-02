@@ -46,27 +46,27 @@ public class DefaultCreatorsLoader {
     private Map<ConfigPath, CreatorHub> hubs = new Hashtable<>();
 
     {
-        hubs.put(ConfigPath.HOTBAR_SLOTS, MinigamesDTools.getInstance().getHotbarItemCreatorHub());
-        hubs.put(ConfigPath.HOTBAR, MinigamesDTools.getInstance().getHotbarCreatorHub());
-        hubs.put(ConfigPath.SCENARIO_CHAIN, MinigamesDTools.getInstance().getScenarioChainCreatorHub());
-        hubs.put(ConfigPath.SCENARIO, MinigamesDTools.getInstance().getScenarioCreatorHub());
-        hubs.put(ConfigPath.ACTIVE_POINT_REACTIONS, MinigamesDTools.getInstance().getReactionCreatorHub());
-        hubs.put(ConfigPath.ACTIVE_POINT_BEHAVIORS, MinigamesDTools.getInstance().getBehaviorCreatorHub());
-        hubs.put(ConfigPath.ACTIVE_POINT, MinigamesDTools.getInstance().getActivePointsCreatorHub());
-        hubs.put(ConfigPath.ARENA_LOBBY, MinigamesDTools.getInstance().getArenaLobbyCreatorHub());
-        hubs.put(ConfigPath.INVENTORY_GUI, MinigamesDTools.getInstance().getInventoryGUICreatorHub());
-        hubs.put(ConfigPath.INVENTORY_GUI_SLOT, MinigamesDTools.getInstance().getInventoryGuiSlotCreatorHub());
-        hubs.put(ConfigPath.ARENA_FOLDER, MinigamesDTools.getInstance().getArenaCreatorHub());
-        hubs.put(ConfigPath.SERVER_LOBBY, MinigamesDTools.getInstance().getLobbyCreatorHub());
-        hubs.put(ConfigPath.CONDITIONS, MinigamesDTools.getInstance().getConditionsCreatorHub());
-        hubs.put(ConfigPath.TEAMS, MinigamesDTools.getInstance().getTeamCreatorHub());
-        hubs.put(ConfigPath.BULLETS, MinigamesDTools.getInstance().getBulletCreatorHub());
+        hubs.put(ConfigPath.HOTBAR_SLOTS, MinigamesDTools.Companion.getInstance().getHotbarItemCreatorHub());
+        hubs.put(ConfigPath.HOTBAR, MinigamesDTools.Companion.getInstance().getHotbarCreatorHub());
+        hubs.put(ConfigPath.SCENARIO_CHAIN, MinigamesDTools.Companion.getInstance().getScenarioChainCreatorHub());
+        hubs.put(ConfigPath.SCENARIO, MinigamesDTools.Companion.getInstance().getScenarioCreatorHub());
+        hubs.put(ConfigPath.ACTIVE_POINT_REACTIONS, MinigamesDTools.Companion.getInstance().getReactionCreatorHub());
+        hubs.put(ConfigPath.ACTIVE_POINT_BEHAVIORS, MinigamesDTools.Companion.getInstance().getBehaviorCreatorHub());
+        hubs.put(ConfigPath.ACTIVE_POINT, MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub());
+        hubs.put(ConfigPath.ARENA_LOBBY, MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub());
+        hubs.put(ConfigPath.INVENTORY_GUI, MinigamesDTools.Companion.getInstance().getInventoryGUICreatorHub());
+        hubs.put(ConfigPath.INVENTORY_GUI_SLOT, MinigamesDTools.Companion.getInstance().getInventoryGuiSlotCreatorHub());
+        hubs.put(ConfigPath.ARENA_FOLDER, MinigamesDTools.Companion.getInstance().getArenaCreatorHub());
+        hubs.put(ConfigPath.SERVER_LOBBY, MinigamesDTools.Companion.getInstance().getLobbyCreatorHub());
+        hubs.put(ConfigPath.CONDITIONS, MinigamesDTools.Companion.getInstance().getConditionsCreatorHub());
+        hubs.put(ConfigPath.TEAMS, MinigamesDTools.Companion.getInstance().getTeamCreatorHub());
+        hubs.put(ConfigPath.BULLETS, MinigamesDTools.Companion.getInstance().getBulletCreatorHub());
     }
 
     private void linkCreators(ConfigPath path) {
-        List<ConfigEntity> keys = MinigamesDTools.getInstance().getConfigProvider().getPoolContents(path);
+        List<ConfigEntity> keys = MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(path);
         for(ConfigEntity configEntity : keys) {
-            ConfigurationSection conf = MinigamesDTools.getInstance().getConfigProvider().getEntity(path, configEntity.getID()).getData();
+            ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(path, configEntity.getID()).getData();
             try {
                 CreatorHub creatorHub = this.hubs.get(path);
                 String configEntityId = configEntity.getID();
@@ -87,9 +87,9 @@ public class DefaultCreatorsLoader {
 
         // hotbar slots
         try {
-            MinigamesDTools.getInstance().getHotbarItemCreatorHub().registerCreator(new ExampleItemCreator());
-            MinigamesDTools.getInstance().getHotbarItemCreatorHub().registerCreator(new ExampleGunCreator());
-            MinigamesDTools.getInstance().getHotbarItemCreatorHub().registerCreator(new InventoryPageOpenRequesterCreator());
+            MinigamesDTools.Companion.getInstance().getHotbarItemCreatorHub().registerCreator(new ExampleItemCreator());
+            MinigamesDTools.Companion.getInstance().getHotbarItemCreatorHub().registerCreator(new ExampleGunCreator());
+            MinigamesDTools.Companion.getInstance().getHotbarItemCreatorHub().registerCreator(new InventoryPageOpenRequesterCreator());
 
             this.linkCreators(ConfigPath.HOTBAR_SLOTS);
         } catch (Exception e) {
@@ -98,8 +98,8 @@ public class DefaultCreatorsLoader {
 
         // hotbar
         try {
-            MinigamesDTools.getInstance().getHotbarCreatorHub().registerCreator(new HeldHotbarCreator());
-            MinigamesDTools.getInstance().getHotbarCreatorHub().registerCreator(new ItemInterractHotbarCreator());
+            MinigamesDTools.Companion.getInstance().getHotbarCreatorHub().registerCreator(new HeldHotbarCreator());
+            MinigamesDTools.Companion.getInstance().getHotbarCreatorHub().registerCreator(new ItemInterractHotbarCreator());
 
             this.linkCreators(ConfigPath.HOTBAR);
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class DefaultCreatorsLoader {
 
         // scenario chain
         try {
-            MinigamesDTools.getInstance().getScenarioChainCreatorHub().registerCreator(new DefaultScenarioChainCreator());
+            MinigamesDTools.Companion.getInstance().getScenarioChainCreatorHub().registerCreator(new DefaultScenarioChainCreator());
             this.linkCreators(ConfigPath.SCENARIO_CHAIN);
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,8 +116,8 @@ public class DefaultCreatorsLoader {
 
         // scenario
         try {
-            MinigamesDTools.getInstance().getScenarioCreatorHub().registerCreator(new ExampleScenarioCreator());
-            MinigamesDTools.getInstance().getScenarioCreatorHub().registerCreator(new ExampleTwoScenarioCreator());
+            MinigamesDTools.Companion.getInstance().getScenarioCreatorHub().registerCreator(new ExampleScenarioCreator());
+            MinigamesDTools.Companion.getInstance().getScenarioCreatorHub().registerCreator(new ExampleTwoScenarioCreator());
 
             this.linkCreators(ConfigPath.SCENARIO);
         } catch (Exception e) {
@@ -125,14 +125,14 @@ public class DefaultCreatorsLoader {
         }
 
         // Entity controllers
-        MinigamesDTools.getInstance().getEntityAPI().register("test", 69, EntityShulker.class, SilentShulker.class);
-        MinigamesDTools.getInstance().getEntityAPI().register("my_zombie", 54, EntityZombie.class, SkyZombie.class);
-        MinigamesDTools.getInstance().getEntityAPI().register("sky_dragon", 63, EntityEnderDragon.class, SkyDragon.class);
+        MinigamesDTools.Companion.getInstance().getEntityAPI().register("test", 69, EntityShulker.class, SilentShulker.class);
+        MinigamesDTools.Companion.getInstance().getEntityAPI().register("my_zombie", 54, EntityZombie.class, SkyZombie.class);
+        MinigamesDTools.Companion.getInstance().getEntityAPI().register("sky_dragon", 63, EntityEnderDragon.class, SkyDragon.class);
 
         // reaction
         try {
-            MinigamesDTools.getInstance().getReactionCreatorHub().registerCreator(new TeamIncrementWinTicketsReactionCreator());
-            MinigamesDTools.getInstance().getReactionCreatorHub().registerCreator(new ItemGiveReactionCreator());
+            MinigamesDTools.Companion.getInstance().getReactionCreatorHub().registerCreator(new TeamIncrementWinTicketsReactionCreator());
+            MinigamesDTools.Companion.getInstance().getReactionCreatorHub().registerCreator(new ItemGiveReactionCreator());
 
             this.linkCreators(ConfigPath.ACTIVE_POINT_REACTIONS);
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class DefaultCreatorsLoader {
 
         // behavior
         try {
-            MinigamesDTools.getInstance().getBehaviorCreatorHub().registerCreator(new ExampleBehaviorCreator());
+            MinigamesDTools.Companion.getInstance().getBehaviorCreatorHub().registerCreator(new ExampleBehaviorCreator());
 
             this.linkCreators(ConfigPath.ACTIVE_POINT_BEHAVIORS);
         } catch (Exception e) {
@@ -150,8 +150,8 @@ public class DefaultCreatorsLoader {
 
         // active_point
         try {
-            MinigamesDTools.getInstance().getActivePointsCreatorHub().registerCreator(new PrimitiveEntityCreator());
-            MinigamesDTools.getInstance().getActivePointsCreatorHub().registerCreator(new PrimitivePointCreator());
+            MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub().registerCreator(new PrimitiveEntityCreator());
+            MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub().registerCreator(new PrimitivePointCreator());
 
             this.linkCreators(ConfigPath.ACTIVE_POINT);
         } catch (Exception e) {
@@ -160,7 +160,7 @@ public class DefaultCreatorsLoader {
 
         // team
         try {
-            MinigamesDTools.getInstance().getTeamCreatorHub().registerCreator(new ExampleTeamCreator());
+            MinigamesDTools.Companion.getInstance().getTeamCreatorHub().registerCreator(new ExampleTeamCreator());
 
             this.linkCreators(ConfigPath.TEAMS);
         } catch (Exception e) {
@@ -169,9 +169,9 @@ public class DefaultCreatorsLoader {
 
         // lobby
         try {
-            MinigamesDTools.getInstance().getArenaLobbyCreatorHub().registerCreator(new StarterLobbyCreator());
-            MinigamesDTools.getInstance().getArenaLobbyCreatorHub().registerCreator(new ExampleRespawnLobbyCreator());
-            MinigamesDTools.getInstance().getArenaLobbyCreatorHub().registerCreator(new ExampleSpectatorLobbyCreator());
+            MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().registerCreator(new StarterLobbyCreator());
+            MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().registerCreator(new ExampleRespawnLobbyCreator());
+            MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().registerCreator(new ExampleSpectatorLobbyCreator());
 
             this.linkCreators(ConfigPath.ARENA_LOBBY);
         } catch (Exception e) {
@@ -180,10 +180,10 @@ public class DefaultCreatorsLoader {
 
         // inventory gui
         try {
-            MinigamesDTools.getInstance().getInventoryGUICreatorHub().registerCreator(new DefaultViewInventoryCreator());
+            MinigamesDTools.Companion.getInstance().getInventoryGUICreatorHub().registerCreator(new DefaultViewInventoryCreator());
             this.linkCreators(ConfigPath.INVENTORY_GUI);
 
-            MinigamesDTools.getInstance().getInventoryGuiSlotCreatorHub().registerCreator(new ExampleInventorySlotCreator());
+            MinigamesDTools.Companion.getInstance().getInventoryGuiSlotCreatorHub().registerCreator(new ExampleInventorySlotCreator());
             this.linkCreators(ConfigPath.INVENTORY_GUI_SLOT);
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,18 +191,18 @@ public class DefaultCreatorsLoader {
 
         // GUIProvider
         try {
-            MinigamesDTools.getInstance().getGuiCreatorHub().registerCreator(new BossbarExampleCreator());
-            MinigamesDTools.getInstance().getGuiCreatorHub().registerCreator(new ScoreboardExampleCreator());
+            MinigamesDTools.Companion.getInstance().getGuiCreatorHub().registerCreator(new BossbarExampleCreator());
+            MinigamesDTools.Companion.getInstance().getGuiCreatorHub().registerCreator(new ScoreboardExampleCreator());
 
-            MinigamesDTools.getInstance().getGuiCreatorHub().registerRouteId2Creator("BossbarExample", "bossbar_example");
-            MinigamesDTools.getInstance().getGuiCreatorHub().registerRouteId2Creator("ScoreboardExample", "scoreboard_example");
+            MinigamesDTools.Companion.getInstance().getGuiCreatorHub().registerRouteId2Creator("BossbarExample", "bossbar_example");
+            MinigamesDTools.Companion.getInstance().getGuiCreatorHub().registerRouteId2Creator("ScoreboardExample", "scoreboard_example");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // arena
         try {
-            MinigamesDTools.getInstance().getArenaCreatorHub().registerCreator(new ExampleArenaCreator());
+            MinigamesDTools.Companion.getInstance().getArenaCreatorHub().registerCreator(new ExampleArenaCreator());
 
             this.linkCreators(ConfigPath.ARENA_FOLDER);
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class DefaultCreatorsLoader {
 
         // server lobby
         try {
-            MinigamesDTools.getInstance().getLobbyCreatorHub().registerCreator(new ExampleLobbyCreator());
+            MinigamesDTools.Companion.getInstance().getLobbyCreatorHub().registerCreator(new ExampleLobbyCreator());
 
             this.linkCreators(ConfigPath.SERVER_LOBBY);
         } catch (Exception e) {
@@ -220,8 +220,8 @@ public class DefaultCreatorsLoader {
 
         // conditions
         try {
-            MinigamesDTools.getInstance().getConditionsCreatorHub().registerCreator(new ExampleConditionCreator());
-            MinigamesDTools.getInstance().getConditionsCreatorHub().registerCreator(new EmptyInventoryConditionCreator());
+            MinigamesDTools.Companion.getInstance().getConditionsCreatorHub().registerCreator(new ExampleConditionCreator());
+            MinigamesDTools.Companion.getInstance().getConditionsCreatorHub().registerCreator(new EmptyInventoryConditionCreator());
 
             this.linkCreators(ConfigPath.CONDITIONS);
         } catch (Exception e) {
@@ -230,7 +230,7 @@ public class DefaultCreatorsLoader {
 
         // bullets
         try {
-            MinigamesDTools.getInstance().getBulletCreatorHub().registerCreator(new GhostBulletCreator());
+            MinigamesDTools.Companion.getInstance().getBulletCreatorHub().registerCreator(new GhostBulletCreator());
 
             this.linkCreators(ConfigPath.BULLETS);
         } catch (Exception e) {
@@ -239,9 +239,9 @@ public class DefaultCreatorsLoader {
 
         // ArenaCommandWatcher
         try {
-            MinigamesDTools.getInstance().getCommandWatcherCreatorHub().registerCreator(new DefaultWatcherCreator());
+            MinigamesDTools.Companion.getInstance().getCommandWatcherCreatorHub().registerCreator(new DefaultWatcherCreator());
 
-            MinigamesDTools.getInstance().getCommandWatcherCreatorHub().registerRouteId2Creator("default_command_watcher", "default_command_watcher");
+            MinigamesDTools.Companion.getInstance().getCommandWatcherCreatorHub().registerRouteId2Creator("default_command_watcher", "default_command_watcher");
         } catch (Exception e) {
             e.printStackTrace();
         }

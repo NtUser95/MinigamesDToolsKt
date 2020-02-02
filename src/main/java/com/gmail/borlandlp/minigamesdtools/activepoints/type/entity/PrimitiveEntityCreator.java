@@ -33,7 +33,7 @@ public class PrimitiveEntityCreator implements Creator {
     @Override
     public ActivePoint create(String activepoint_id, AbstractDataProvider dataProvider) throws Exception {
         BossEntity activePoint = null;
-        ConfigurationSection activePointConfig = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT, activepoint_id).getData();
+        ConfigurationSection activePointConfig = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT, activepoint_id).getData();
 
         //init by type
         if (activePointConfig == null) {
@@ -89,7 +89,7 @@ public class PrimitiveEntityCreator implements Creator {
                 Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "load damage reaction " + handler_name);
                 AbstractDataProvider rDataProvider = new DataProvider();
                 rDataProvider.set("active_point_instance", activePoint);
-                damageHandlers.add(MinigamesDTools.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
+                damageHandlers.add(MinigamesDTools.Companion.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
             }
             activePoint.setReaction(ReactionReason.DAMAGE, damageHandlers);
             Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "Done load damage reactions for" + activepoint_id);
@@ -108,7 +108,7 @@ public class PrimitiveEntityCreator implements Creator {
                 Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "load intersect reaction " + handler_name);
                 AbstractDataProvider rDataProvider = new DataProvider();
                 rDataProvider.set("active_point_instance", activePoint);
-                intersectHandlers.add(MinigamesDTools.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
+                intersectHandlers.add(MinigamesDTools.Companion.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
             }
 
             activePoint.setReaction(ReactionReason.INTERSECT, intersectHandlers);
@@ -128,7 +128,7 @@ public class PrimitiveEntityCreator implements Creator {
                 Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "load interact reaction " + handler_name);
                 AbstractDataProvider rDataProvider = new DataProvider();
                 rDataProvider.set("active_point_instance", activePoint);
-                interactHandlers.add(MinigamesDTools.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
+                interactHandlers.add(MinigamesDTools.Companion.getInstance().getReactionCreatorHub().createReaction(handler_name, rDataProvider));
             }
 
             activePoint.setReaction(ReactionReason.INTERACT, interactHandlers);
@@ -147,7 +147,7 @@ public class PrimitiveEntityCreator implements Creator {
             AbstractDataProvider rDataProvider = new DataProvider();
             rDataProvider.set("active_point_instance", activePoint);
 
-            behaviors.add(MinigamesDTools.getInstance().getBehaviorCreatorHub().createBehavior(handler_name, rDataProvider));
+            behaviors.add(MinigamesDTools.Companion.getInstance().getBehaviorCreatorHub().createBehavior(handler_name, rDataProvider));
         }
         activePoint.setBehaviors(behaviors);
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "Done load behaviors");

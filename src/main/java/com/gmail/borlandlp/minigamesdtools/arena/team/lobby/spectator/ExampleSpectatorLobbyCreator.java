@@ -5,8 +5,6 @@ import com.gmail.borlandlp.minigamesdtools.config.ConfigPath;
 import com.gmail.borlandlp.minigamesdtools.creator.AbstractDataProvider;
 import com.gmail.borlandlp.minigamesdtools.creator.Creator;
 import com.gmail.borlandlp.minigamesdtools.creator.CreatorInfo;
-import com.gmail.borlandlp.minigamesdtools.creator.DataProvider;
-import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar;
 import com.gmail.borlandlp.minigamesdtools.util.ArenaUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -24,7 +22,7 @@ public class ExampleSpectatorLobbyCreator implements Creator {
     public ExampleSpectatorLobby create(String ID, AbstractDataProvider dataProvider) throws Exception {
         ExampleSpectatorLobby lobby = new ExampleSpectatorLobby();
 
-        ConfigurationSection conf = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, ID).getData();
+        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, ID).getData();
         if(conf.contains("hotbar.enabled") && conf.get("hotbar.enabled").toString().equals("true")) {
             lobby.setHotbarId(conf.get("hotbar.id").toString());
             lobby.setHotbarEnabled(true);

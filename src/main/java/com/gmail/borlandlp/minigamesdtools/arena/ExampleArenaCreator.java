@@ -25,7 +25,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @CreatorInfo(creatorId = "default_arena")
 public class ExampleArenaCreator implements Creator {
@@ -37,7 +36,7 @@ public class ExampleArenaCreator implements Creator {
     @Override
     public ArenaBase create(String ID, AbstractDataProvider dataProvider) throws Exception {
         String debugPrefix = "[" + ID + "] ";
-        ConfigurationSection arenaConfig = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_FOLDER, ID).getData();
+        ConfigurationSection arenaConfig = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_FOLDER, ID).getData();
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + " started loading...");
 
         ArenaBase.Builder builder = ArenaBase.newBuilder();
@@ -55,7 +54,7 @@ public class ExampleArenaCreator implements Creator {
                     Location min_loc = world.getBlockAt(Integer.parseInt(minXZ[0]), 1, Integer.parseInt(minXZ[1])).getLocation();
                     Location max_loc = world.getBlockAt(Integer.parseInt(maxXZ[0]), 1, Integer.parseInt(maxXZ[1])).getLocation();
 
-                    chunksLoaderMap.put(loaderName, MinigamesDTools.getInstance().getChunkLoaderCreator().buildChunkLoader(world, min_loc, max_loc));
+                    chunksLoaderMap.put(loaderName, MinigamesDTools.Companion.getInstance().getChunkLoaderCreator().buildChunkLoader(world, min_loc, max_loc));
                 } else {
                     Debug.print(Debug.LEVEL.NOTICE, "ChunkLoaderConfig does not contain a field 'min_point_xz' or 'max_point_xz' -> Skipping it.");
                 }
@@ -71,7 +70,7 @@ public class ExampleArenaCreator implements Creator {
         GUIController guiController = new GUIController();
         guiController.setArena(builder.getArena());
         for (String GUI_ID : arenaConfig.getStringList("gui_provider")) {
-            GUIProvider guiProvider = MinigamesDTools.getInstance().getGuiCreatorHub().createGuiProvider(GUI_ID, new DataProvider());
+            GUIProvider guiProvider = MinigamesDTools.Companion.getInstance().getGuiCreatorHub().createGuiProvider(GUI_ID, new DataProvider());
             guiProvider.setArena(builder.getArena());
             guiController.addProvider(guiProvider);
         }
@@ -80,13 +79,13 @@ public class ExampleArenaCreator implements Creator {
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + " load ScenarioChain...");
         AbstractDataProvider abstractDataProvider = new DataProvider();
         abstractDataProvider.set("arena_instance", builder.getArena());
-        ScenarioChainController scenarioChainController = MinigamesDTools.getInstance().getScenarioChainCreatorHub().createChain(arenaConfig.get("scenarios_chain").toString(), abstractDataProvider);
+        ScenarioChainController scenarioChainController = MinigamesDTools.Companion.getInstance().getScenarioChainCreatorHub().createChain(arenaConfig.get("scenarios_chain").toString(), abstractDataProvider);
         builder.setScenarioChainController(scenarioChainController);
 
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + " load teams...");
         TeamController teamController = new TeamController(builder.getArena());
         for(String teamID : arenaConfig.getStringList("teams")) {
-            TeamProvider teamProvider = MinigamesDTools.getInstance().getTeamCreatorHub().createTeam(teamID, new DataProvider());
+            TeamProvider teamProvider = MinigamesDTools.Companion.getInstance().getTeamCreatorHub().createTeam(teamID, new DataProvider());
             teamProvider.setArena(builder.getArena());
             teamController.addTeam(teamProvider);
         }
@@ -96,7 +95,7 @@ public class ExampleArenaCreator implements Creator {
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + " load conditions...");
         List<AbstractCondition> conditions = new ArrayList<>();
         for (String conditionId : arenaConfig.getStringList("join_conditions")) {
-            conditions.add(MinigamesDTools.getInstance().getConditionsCreatorHub().createCondition(conditionId, new DataProvider()));
+            conditions.add(MinigamesDTools.Companion.getInstance().getConditionsCreatorHub().createCondition(conditionId, new DataProvider()));
         }
         builder.setJoinConditionsChain(new ConditionsChain(conditions));
 
@@ -181,7 +180,7 @@ public class ExampleArenaCreator implements Creator {
             cDataProvider.set("whitelist_rules", whitelisted);
 
             String handlerID = arenaConfig.get("commands.handler").toString();
-            CommandWatcherCreatorHub creatorHub = MinigamesDTools.getInstance().getCommandWatcherCreatorHub();
+            CommandWatcherCreatorHub creatorHub = MinigamesDTools.Companion.getInstance().getCommandWatcherCreatorHub();
             ArenaCommandWatcher watcher = creatorHub.createCommandWatcher(handlerID, cDataProvider);
 
             arenaTemplate.getPhaseComponentController().register(watcher);

@@ -25,22 +25,22 @@ public class ActivePointController implements APIComponent, ActivePointsAPI {
     @Override
     public void onLoad() {
         this.listener = new ActivePointsListener(this);
-        MinigamesDTools.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.getInstance());
+        MinigamesDTools.Companion.getInstance().getServer().getPluginManager().registerEvents(this.listener, MinigamesDTools.Companion.getInstance());
 
         final ActivePointController task = this;
         this.task = new BukkitRunnable() {
             public void run() {
                 task.update();
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 0, 20);
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), 0, 20);
 
         // load default activepoints
-        List<ConfigEntity> poolContents = MinigamesDTools.getInstance().getConfigProvider().getPoolContents(ConfigPath.ACTIVE_POINT);
+        List<ConfigEntity> poolContents = MinigamesDTools.Companion.getInstance().getConfigProvider().getPoolContents(ConfigPath.ACTIVE_POINT);
         for(ConfigEntity configEntity : poolContents) {
             Debug.print(Debug.LEVEL.NOTICE,"[ActivePointController] load activePoint " + configEntity.getID());
             ActivePoint activePoint = null;
             try {
-                activePoint = MinigamesDTools.getInstance().getActivePointsCreatorHub().createActivePoint(configEntity.getID(), new DataProvider());
+                activePoint = MinigamesDTools.Companion.getInstance().getActivePointsCreatorHub().createActivePoint(configEntity.getID(), new DataProvider());
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -8,7 +8,6 @@ import com.gmail.borlandlp.minigamesdtools.nmsentities.entity.ISkybattleEntity;
 import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.Vec3D;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 
 public abstract class LivingEntityPoint extends ActivePoint {
     private Entity bukkitEntity;
@@ -35,7 +34,7 @@ public abstract class LivingEntityPoint extends ActivePoint {
     public void spawn() {
         this.bukkitEntity = ((ISkybattleEntity)this.getClassTemplate()).spawn(this.getLocation());
         try {
-            this.pathController = MinigamesDTools.getInstance().getEntityAPI().addMovePaths(this.getClassTemplate(), this.getMovePaths(), true);
+            this.pathController = MinigamesDTools.Companion.getInstance().getEntityAPI().addMovePaths(this.getClassTemplate(), this.getMovePaths(), true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,7 +44,7 @@ public abstract class LivingEntityPoint extends ActivePoint {
     }
 
     public void despawn() {
-        MinigamesDTools.getInstance().getEntityAPI().removeMovePath(this.pathController);
+        MinigamesDTools.Companion.getInstance().getEntityAPI().removeMovePath(this.pathController);
         this.getBukkitEntity().remove();
         Debug.print(Debug.LEVEL.NOTICE, "despawn activepoint " + this.getName());
 

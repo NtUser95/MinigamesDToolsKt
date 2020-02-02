@@ -21,7 +21,7 @@ public class ExampleBehaviorCreator implements Creator {
     @Override
     public Object create(String Id, AbstractDataProvider dataProvider) throws Exception {
         ExampleBehavior exampleBehavior = new ExampleBehavior();
-        ConfigurationSection conf = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_BEHAVIORS, Id).getData();
+        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_BEHAVIORS, Id).getData();
         if(conf == null) {
             throw new Exception("Cant find config for Behavior[ID:" + Id + "]");
         }

@@ -28,7 +28,7 @@ public class ExampleTeamCreator implements Creator {
     }
 
     public TeamProvider create(String teamID, AbstractDataProvider dataProvider) throws Exception {
-        ConfigurationSection fileConfiguration = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.TEAMS, teamID).getData();
+        ConfigurationSection fileConfiguration = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.TEAMS, teamID).getData();
         if(fileConfiguration == null) {
             throw new Exception("cant find config of team[ID:" + teamID + "]");
         }
@@ -102,7 +102,7 @@ public class ExampleTeamCreator implements Creator {
 
         // respawn lobby
         if(fileConfiguration.contains("respawn_lobby.enabled") && Boolean.parseBoolean(fileConfiguration.get("respawn_lobby.enabled").toString())) {
-            ArenaLobby respawnLobby = MinigamesDTools.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("respawn_lobby.lobby_handler").toString(), new DataProvider());
+            ArenaLobby respawnLobby = MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("respawn_lobby.lobby_handler").toString(), new DataProvider());
             respawnLobby.setTeamProvider(team);
             respawnLobby.setEnabled(true);
             team.setRespawnLobby((RespawnLobby) respawnLobby);
@@ -118,7 +118,7 @@ public class ExampleTeamCreator implements Creator {
         if(!fileConfiguration.contains("spectate_lobby.id")) {
             throw new Exception("Arena must be config for spectate_lobby");
         }
-        ArenaLobby spectatorLobby = MinigamesDTools.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("spectate_lobby.id").toString(), new DataProvider());
+        ArenaLobby spectatorLobby = MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("spectate_lobby.id").toString(), new DataProvider());
         spectatorLobby.setTeamProvider(team);
         spectatorLobby.setEnabled(true);
         team.setSpectatorLobby((SpectatorLobby) spectatorLobby);
@@ -128,7 +128,7 @@ public class ExampleTeamCreator implements Creator {
         if(!fileConfiguration.contains("starter_lobby")) {
             throw new Exception("Arena must be config for starter_lobby");
         }
-        ArenaLobby starterLobby = MinigamesDTools.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("starter_lobby.lobby_handler").toString(), new DataProvider());
+        ArenaLobby starterLobby = MinigamesDTools.Companion.getInstance().getArenaLobbyCreatorHub().createLobby(fileConfiguration.get("starter_lobby.lobby_handler").toString(), new DataProvider());
         starterLobby.setTeamProvider(team);
         ((StarterLobby) starterLobby).setEnabled(Boolean.parseBoolean(fileConfiguration.get("starter_lobby.enabled").toString()));
         team.setStarterLobby((StarterLobby) starterLobby);

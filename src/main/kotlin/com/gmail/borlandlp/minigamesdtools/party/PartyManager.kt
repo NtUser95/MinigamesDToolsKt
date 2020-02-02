@@ -43,7 +43,7 @@ class PartyManager : PartyAPI, APIComponent {
 
     override fun onLoad() {
         pListener = PartyListener(this)
-        Bukkit.getPluginManager().registerEvents(pListener as PartyListener, MinigamesDTools.getInstance())
+        Bukkit.getPluginManager().registerEvents(pListener as PartyListener, MinigamesDTools.instance)
     }
 
     override fun onUnload() {

@@ -9,7 +9,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import java.util.logging.Level
 
 class LobbyHubListener(private val lobbyController: LobbyHubController) : Listener {
     // Arena events
@@ -19,7 +18,7 @@ class LobbyHubListener(private val lobbyController: LobbyHubController) : Listen
             Debug.LEVEL.NOTICE,
             "Handle $event"
         )
-        val serverLobby = MinigamesDTools.getInstance().lobbyHubAPI.getLobbyByPlayer(event.player)
+        val serverLobby = MinigamesDTools.instance!!.lobbyHubAPI!!.getLobbyByPlayer(event.player)
         if (serverLobby != null) {
             try {
                 serverLobby.handlePlayerLeaveArena(event.player)
@@ -38,7 +37,7 @@ class LobbyHubListener(private val lobbyController: LobbyHubController) : Listen
             "Handle $event"
         )
         val serverLobby =
-            MinigamesDTools.getInstance().lobbyHubAPI.getLobbyByPlayer(event.player)
+            MinigamesDTools.instance!!.lobbyHubAPI!!.getLobbyByPlayer(event.player)
         serverLobby?.setPlayerArena(event.player, event.arena)
     }
 
@@ -55,14 +54,14 @@ class LobbyHubListener(private val lobbyController: LobbyHubController) : Listen
     @EventHandler(ignoreCancelled = true)
     fun onPlayerKick(event: PlayerKickEvent) {
         val serverLobby =
-            MinigamesDTools.getInstance().lobbyHubAPI.getLobbyByPlayer(event.player)
+            MinigamesDTools.instance!!.lobbyHubAPI!!.getLobbyByPlayer(event.player)
         serverLobby?.unregisterPlayer(event.player)
     }
 
     @EventHandler
     fun onLogout(event: PlayerQuitEvent) {
         val serverLobby =
-            MinigamesDTools.getInstance().lobbyHubAPI.getLobbyByPlayer(event.player)
+            MinigamesDTools.instance!!.lobbyHubAPI!!.getLobbyByPlayer(event.player)
         serverLobby?.unregisterPlayer(event.player)
     }
 

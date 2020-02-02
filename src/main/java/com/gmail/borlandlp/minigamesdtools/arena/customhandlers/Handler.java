@@ -15,7 +15,7 @@ public abstract class Handler {
             public void run() {
                 task.doWork();
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), this.delay, this.period);
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), this.delay, this.period);
     }
 
     void stop() {

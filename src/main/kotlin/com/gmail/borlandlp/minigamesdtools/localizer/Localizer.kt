@@ -14,7 +14,7 @@ class Localizer : APIComponent, LocalizerAPI {
 
     override fun onLoad() {
         val locPath =
-            File(MinigamesDTools.getInstance().dataFolder.absoluteFile, "localizer")
+            File(MinigamesDTools.instance!!.dataFolder.absoluteFile, "localizer")
         dbStorage = YAMLDbStorage(File(locPath, "db.yml"))
         val locConfig = File(locPath, "config.yml")
     }

@@ -12,7 +12,7 @@ public class Debug {
 
     public static void init() {
         try {
-            ConfigEntity conf = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.MAIN, "minigamesdtools");
+            ConfigEntity conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.MAIN, "minigamesdtools");
             Debug.enabled = Boolean.parseBoolean(conf.getData().get("debug").toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class Debug {
             str.append(":");
             str.append(msg);
             str.append(Ansi.ansi().fg(Ansi.Color.WHITE).boldOff().toString());
-            MinigamesDTools.getInstance().getLogger().log(Level.INFO, str.toString());
+            MinigamesDTools.Companion.getInstance().getLogger().log(Level.INFO, str.toString());
         }
     }
 

@@ -87,7 +87,7 @@ public class DefaultWatcher implements Listener, ArenaCommandWatcher {
     @Override
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        ArenaBase arena = MinigamesDTools.getInstance().getArenaAPI().getArenaOf(event.getPlayer());
+        ArenaBase arena = MinigamesDTools.Companion.getInstance().getArenaAPI().getArenaOf(event.getPlayer());
         if(arena != null && arena == this.arena) {
             String[] command = event.getMessage().replace("/", "").split(" ");
             if(!isAllowedCommand(command)) {
@@ -99,7 +99,7 @@ public class DefaultWatcher implements Listener, ArenaCommandWatcher {
 
     @Override
     public void onInit() {
-        Bukkit.getPluginManager().registerEvents(this, MinigamesDTools.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, MinigamesDTools.Companion.getInstance());
     }
 
     @Override

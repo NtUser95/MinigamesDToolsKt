@@ -6,7 +6,6 @@ import com.gmail.borlandlp.minigamesdtools.arena.ArenaPlayersRelative;
 import com.gmail.borlandlp.minigamesdtools.events.ArenaPlayerQuitEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
 
 import java.util.*;
 

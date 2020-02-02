@@ -91,7 +91,7 @@ public class ArenaBase {
                     arenaObj.beforeRoundStarting();
                 }
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 10, 10);
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), 10, 10);
     }
 
     protected void delayedStartArena() {
@@ -112,7 +112,7 @@ public class ArenaBase {
                     arenaBaseObject.delayedCountdown_task.cancel();
                 }
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 0, 20);
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), 0, 20);
     }
 
     public void cancelDelayedStartArena() {
@@ -145,7 +145,7 @@ public class ArenaBase {
                     arenaBaseObject.countdownTask.cancel();
                 }
             }
-        }.runTaskTimer(MinigamesDTools.getInstance(), 0, 20);
+        }.runTaskTimer(MinigamesDTools.Companion.getInstance(), 0, 20);
     }
 
     protected void update() {

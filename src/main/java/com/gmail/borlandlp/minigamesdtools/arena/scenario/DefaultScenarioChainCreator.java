@@ -22,7 +22,7 @@ public class DefaultScenarioChainCreator implements Creator {
 
     @Override
     public ScenarioChainController create(String ID, AbstractDataProvider dataProvider) throws Exception {
-        ConfigurationSection configurationSection = MinigamesDTools.getInstance().getConfigProvider().getEntity(ConfigPath.SCENARIO_CHAIN, ID).getData();
+        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.SCENARIO_CHAIN, ID).getData();
         if(configurationSection == null) {
             throw new Exception("Cant find config for ScenarioChain[ID:" + ID + "]");
         }
@@ -31,7 +31,7 @@ public class DefaultScenarioChainCreator implements Creator {
         Map<String, Scenario> scenarioMap = new HashMap<>();
         for (String scenarioPhase : configurationSection.getConfigurationSection("chain").getKeys(false)) {
             String scenarioID = configurationSection.get("chain." + scenarioPhase + ".scenario_id").toString();
-            Scenario scenario = MinigamesDTools.getInstance().getScenarioCreatorHub().createScenario(scenarioID, dataProvider);
+            Scenario scenario = MinigamesDTools.Companion.getInstance().getScenarioCreatorHub().createScenario(scenarioID, dataProvider);
             if(scenario != null) {
                 scenarioMap.put(scenarioPhase, scenario);
             } else {

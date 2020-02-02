@@ -35,9 +35,9 @@ public class ExampleScenario extends ScenarioAbstract {
         }
 
         try {
-            MinigamesDTools.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_sphereactivepoint"));
-            MinigamesDTools.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_squareactivepoint"));
-            MinigamesDTools.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_livingentity"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_sphereactivepoint"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_squareactivepoint"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().activatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_livingentity"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,9 +46,9 @@ public class ExampleScenario extends ScenarioAbstract {
     @Override
     public void gameEnded() {
         try {
-            MinigamesDTools.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_sphereactivepoint"));
-            MinigamesDTools.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_livingentity"));
-            MinigamesDTools.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.getInstance().getActivePointsAPI().searchPointByID("example_squareactivepoint"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_sphereactivepoint"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_livingentity"));
+            MinigamesDTools.Companion.getInstance().getActivePointsAPI().deactivatePoint(MinigamesDTools.Companion.getInstance().getActivePointsAPI().searchPointByID("example_squareactivepoint"));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -7,9 +7,6 @@ import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public abstract class ArenaLobby {
     protected TeamProvider teamProvider;
     protected Location spawnPoint;
@@ -32,7 +29,7 @@ public abstract class ArenaLobby {
     public Hotbar getHotbarFor(Player player) {
         Hotbar hotbar = null;
         try {
-            hotbar = MinigamesDTools.getInstance().getHotbarCreatorHub().createHotbar(this.hotbarId, new DataProvider() {{
+            hotbar = MinigamesDTools.Companion.getInstance().getHotbarCreatorHub().createHotbar(this.hotbarId, new DataProvider() {{
                 this.set("player", player);
             }});
         } catch (Exception e) {
