@@ -5,9 +5,10 @@ import com.gmail.borlandlp.minigamesdtools.gun.bullet.GhostBullet
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
+import java.util.concurrent.ConcurrentLinkedQueue
 
 class BulletHandler : BulletHandlerApi {
-    private val bullets: MutableList<GhostBullet> = ArrayList()
+    private val bullets: Queue<GhostBullet> = ConcurrentLinkedQueue()
     private var task: BukkitTask? = null
 
     override fun addBullet(bullet: GhostBullet) {
@@ -37,14 +38,16 @@ class BulletHandler : BulletHandlerApi {
     }
 
     private fun update() {
-        for (bullet in bullets) {
+        bullets.forEach { bullet ->
             try {
                 bullet.B_() // B_() -> update()
-                if (!bullet.isAlive) {
-                    removeBullet(bullet)
-                }
             } catch (e: Exception) {
                 e.printStackTrace()
+                bullet.dead = true
+            } finally {
+                if (bullet.dead) {
+                    bullets.remove(bullet)
+                }
             }
         }
     }
