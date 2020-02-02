@@ -5,9 +5,9 @@ import com.gmail.borlandlp.minigamesdtools.Debug.print
 import java.util.*
 
 abstract class CreatorHub : ICreatorHub {
-    private val creators: MutableMap<String, Creator?> =
+    private val creators: MutableMap<String, Creator> =
         Hashtable()
-    private val route: MutableMap<String, String?> =
+    private val route: MutableMap<String, String> =
         Hashtable()
 
     /*
@@ -38,8 +38,8 @@ abstract class CreatorHub : ICreatorHub {
 
     override fun unregisterCreator(creator: Creator) { //this.route.keySet().parallelStream().filter(n -> this.routeId2Creator(n) == creator).forEach(n -> this.route.remove(n));
         creators.keys.parallelStream()
-            .filter { n: String? -> creators[n] === creator }
-            .forEach { n: String? -> creators.remove(n) }
+            .filter { n: String -> creators[n] === creator }
+            .forEach { n: String -> creators.remove(n) }
     }
 
     override fun unregisterCreator(creatorID: String) {

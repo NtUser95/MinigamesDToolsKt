@@ -6,8 +6,7 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class ActivePointDestroyedEvent(val activePoint: ActivePoint, val destroyer: Player) : Event(),
-    Cancellable {
+class ActivePointDestroyedEvent(val activePoint: ActivePoint, val destroyer: Player) : Event(), Cancellable {
     private var canceled = false
 
     override fun isCancelled(): Boolean {

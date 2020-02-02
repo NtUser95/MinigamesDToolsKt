@@ -156,9 +156,12 @@ class MinigamesDTools : JavaPlugin() {
         guiCreatorHub = GUICreatorHub()
         hotbarCreatorHub = HotbarCreatorHub()
         hotbarItemCreatorHub = HotbarItemCreatorHub()
-        reactionCreatorHub = ReactionCreatorHub()
-        behaviorCreatorHub = BehaviorCreatorHub()
-        activePointsCreatorHub = ActivePointsCreatorHub()
+        reactionCreatorHub =
+            ReactionCreatorHub()
+        behaviorCreatorHub =
+            BehaviorCreatorHub()
+        activePointsCreatorHub =
+            ActivePointsCreatorHub()
         scenarioCreatorHub = ScenarioCreatorHub()
         scenarioChainCreatorHub = ScenarioChainCreatorHub()
         arenaCreatorHub = ArenaCreatorHub()
