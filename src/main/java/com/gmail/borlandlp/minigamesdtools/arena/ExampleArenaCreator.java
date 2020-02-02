@@ -27,16 +27,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.*;
 
 @CreatorInfo(creatorId = "default_arena")
-public class ExampleArenaCreator implements Creator {
+public class ExampleArenaCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ArenaBase create(String ID, AbstractDataProvider dataProvider) throws Exception {
-        String debugPrefix = "[" + ID + "] ";
-        ConfigurationSection arenaConfig = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_FOLDER, ID).getData();
+    public ArenaBase create(String id, AbstractDataProvider dataProvider) throws Exception {
+        String debugPrefix = "[" + id + "] ";
+        ConfigurationSection arenaConfig = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_FOLDER, id).getData();
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + " started loading...");
 
         ArenaBase.Builder builder = ArenaBase.newBuilder();
@@ -107,14 +102,14 @@ public class ExampleArenaCreator implements Creator {
             hotbarController.setDefaultHotbarId(hotbarID);
             hotbarController.setEnabled(true);
         } else {
-            Debug.print(Debug.LEVEL.NOTICE, "Hotbar is disabled for Arena " + ID);
+            Debug.print(Debug.LEVEL.NOTICE, "Hotbar is disabled for Arena " + id);
         }
         builder.setHotbarController(hotbarController);
 
         Debug.print(Debug.LEVEL.NOTICE, debugPrefix + "generate random ID...");
         builder.setGameId(ArenaUtils.generateRandID().substring(0, 14));
 
-        builder.setName(ID);
+        builder.setName(id);
 
         // gen colors
         /*

@@ -9,14 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "example_scenario_two")
-public class ExampleTwoScenarioCreator implements Creator {
+public class ExampleTwoScenarioCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Object create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public Object create(String id, AbstractDataProvider dataProvider) throws Exception {
         ExampleTwoScenario exampleScenario = new ExampleTwoScenario();
         exampleScenario.setArena((ArenaBase) dataProvider.get("arena_instance"));
 

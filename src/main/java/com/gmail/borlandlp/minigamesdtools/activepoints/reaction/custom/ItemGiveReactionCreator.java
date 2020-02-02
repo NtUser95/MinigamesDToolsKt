@@ -10,14 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "item_give_reaction")
-public class ItemGiveReactionCreator implements Creator {
+public class ItemGiveReactionCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Object create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public Object create(String id, AbstractDataProvider dataProvider) throws Exception {
         Reaction reaction = new ItemGiveReaction();
         reaction.setActivePoint((ActivePoint) dataProvider.get("active_point_instance"));
 

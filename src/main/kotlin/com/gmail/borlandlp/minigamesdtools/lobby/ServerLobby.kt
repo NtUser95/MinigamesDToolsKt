@@ -54,10 +54,10 @@ abstract class ServerLobby {
      * TODO: Зачем здесь это?
      */
     private fun applyHotbar(player: Player): Boolean {
-        var hotbar: Hotbar? = null
+        var hotbar: Hotbar?
         try {
             hotbar = MinigamesDTools.instance!!.hotbarCreatorHub!!
-                .createHotbar(hotbarID, object : DataProvider() {
+                .createHotbar(hotbarID!!, object : DataProvider() {
                     init {
                         this["player"] = player
                     }
@@ -66,15 +66,7 @@ abstract class ServerLobby {
             e.printStackTrace()
             return false
         }
-        if (hotbar == null) {
-            Debug.print(
-                Debug.LEVEL.WARNING,
-                "Build of Hotbar[ID:" + hotbarID + "] for Player[name:" + player.name + "] is null! This is a build error."
-            )
-            return false
-        } else {
-            MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
-        }
+        MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
         return true
     }
 
@@ -84,7 +76,9 @@ abstract class ServerLobby {
             throw Exception("Lobby[ID:" + id + "] doesn't contain a player:" + p.name)
         }
         spawn(p)
-        applyHotbar(p) // TODO: Refactor - fire event?
+        if (hotbarID != null) {// TODO: Refactor - fire event?
+            applyHotbar(p)
+        }
     }
 
     fun registerPlayer(p: Player): Boolean {

@@ -21,12 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 @CreatorInfo(creatorId = "default_team")
-public class ExampleTeamCreator implements Creator {
-    @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
+public class ExampleTeamCreator extends Creator {
     public TeamProvider create(String teamID, AbstractDataProvider dataProvider) throws Exception {
         ConfigurationSection fileConfiguration = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.TEAMS, teamID).getData();
         if(fileConfiguration == null) {

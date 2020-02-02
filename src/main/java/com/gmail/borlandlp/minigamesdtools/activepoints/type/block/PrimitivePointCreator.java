@@ -21,12 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "primitive_point_creator")
-public class PrimitivePointCreator implements Creator {
-    @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
+public class PrimitivePointCreator extends Creator {
     @Override
     public ActivePoint create(String activepoint_id, AbstractDataProvider dataProvider) throws Exception {
         PrimitiveBlockPoint activePoint = null;

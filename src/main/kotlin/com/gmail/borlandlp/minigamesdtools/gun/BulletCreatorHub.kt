@@ -6,7 +6,7 @@ import com.gmail.borlandlp.minigamesdtools.gun.bullet.GhostBullet
 
 class BulletCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createBullet(ID: String?, dataProvider: AbstractDataProvider?): GhostBullet {
+    fun createBullet(ID: String, dataProvider: AbstractDataProvider): GhostBullet {
         return create(ID, dataProvider) as GhostBullet
     }
 }

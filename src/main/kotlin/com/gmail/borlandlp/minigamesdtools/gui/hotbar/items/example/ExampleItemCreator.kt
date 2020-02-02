@@ -8,19 +8,14 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorInfo
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import java.lang.Boolean
-import java.util.*
 
 @CreatorInfo(creatorId = "example_item")
-class ExampleItemCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return ArrayList()
-    }
-
+class ExampleItemCreator : Creator() {
     @Throws(Exception::class)
-    override fun create(ID: String, dataProvider: AbstractDataProvider): Any {
+    override fun create(id: String, dataProvider: AbstractDataProvider): Any {
         val slotItem = ExampleItem()
         val configurationSection =
-            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, ID).data
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, id)!!.data
         val activeIcon =
             ItemStack(Material.getMaterial(configurationSection["active_icon"].toString()))
         val unactiveIcon =

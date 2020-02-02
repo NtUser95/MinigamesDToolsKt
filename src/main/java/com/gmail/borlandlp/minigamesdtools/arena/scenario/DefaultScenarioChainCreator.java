@@ -14,17 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @CreatorInfo(creatorId = "default_scenario_chain")
-public class DefaultScenarioChainCreator implements Creator {
+public class DefaultScenarioChainCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ScenarioChainController create(String ID, AbstractDataProvider dataProvider) throws Exception {
-        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.SCENARIO_CHAIN, ID).getData();
+    public ScenarioChainController create(String id, AbstractDataProvider dataProvider) throws Exception {
+        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.SCENARIO_CHAIN, id).getData();
         if(configurationSection == null) {
-            throw new Exception("Cant find config for ScenarioChain[ID:" + ID + "]");
+            throw new Exception("Cant find config for ScenarioChain[ID:" + id + "]");
         }
 
         //load scenarios

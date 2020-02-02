@@ -13,17 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "default_respawn_lobby")
-public class ExampleRespawnLobbyCreator implements Creator {
+public class ExampleRespawnLobbyCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ArenaLobby create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public ArenaLobby create(String id, AbstractDataProvider dataProvider) throws Exception {
         ExampleRespawnLobby lobby = new ExampleRespawnLobby();
 
-        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, ID).getData();
+        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, id).getData();
         if(conf.contains("hotbar.enabled") && conf.get("hotbar.enabled").toString().equals("true")) {
             lobby.setHotbarEnabled(true);
             lobby.setHotbarId(conf.get("hotbar.id").toString());

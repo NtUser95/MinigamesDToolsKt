@@ -12,17 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "default_spectator_lobby")
-public class ExampleSpectatorLobbyCreator implements Creator {
+public class ExampleSpectatorLobbyCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ExampleSpectatorLobby create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public ExampleSpectatorLobby create(String id, AbstractDataProvider dataProvider) throws Exception {
         ExampleSpectatorLobby lobby = new ExampleSpectatorLobby();
 
-        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, ID).getData();
+        ConfigurationSection conf = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ARENA_LOBBY, id).getData();
         if(conf.contains("hotbar.enabled") && conf.get("hotbar.enabled").toString().equals("true")) {
             lobby.setHotbarId(conf.get("hotbar.id").toString());
             lobby.setHotbarEnabled(true);

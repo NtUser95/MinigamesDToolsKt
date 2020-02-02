@@ -13,16 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "team_increment_win_ticket_reaction")
-public class TeamIncrementWinTicketsReactionCreator implements Creator {
+public class TeamIncrementWinTicketsReactionCreator extends Creator {
     @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Reaction create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public Reaction create(String id, AbstractDataProvider dataProvider) throws Exception {
         TeamIncrementWinTicketsReaction reaction = new TeamIncrementWinTicketsReaction();
-        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_REACTIONS, ID).getData();
+        ConfigurationSection configurationSection = MinigamesDTools.Companion.getInstance().getConfigProvider().getEntity(ConfigPath.ACTIVE_POINT_REACTIONS, id).getData();
         reaction.setActivePoint((ActivePoint) dataProvider.get("active_point_instance"));
         reaction.setValue(Integer.parseInt(configurationSection.get("value").toString()));
 

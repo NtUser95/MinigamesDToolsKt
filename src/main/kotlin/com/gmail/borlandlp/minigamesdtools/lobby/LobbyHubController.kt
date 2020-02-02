@@ -91,7 +91,7 @@ class LobbyHubController : APIComponent, LobbyServerAPI {
         // set default serverLobby
         var conf: ConfigurationSection? = null
         try {
-            conf = MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.MAIN, "minigamesdtools")
+            conf = MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.MAIN, "minigamesdtools")!!
                 .data
         } catch (e: Exception) {
             e.printStackTrace()

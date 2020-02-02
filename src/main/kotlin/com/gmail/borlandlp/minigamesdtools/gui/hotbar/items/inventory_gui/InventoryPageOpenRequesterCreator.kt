@@ -10,17 +10,13 @@ import org.bukkit.inventory.ItemStack
 import java.util.*
 
 @CreatorInfo(creatorId = "inventory_page_open_requester")
-class InventoryPageOpenRequesterCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return ArrayList()
-    }
-
+class InventoryPageOpenRequesterCreator : Creator() {
     @Throws(Exception::class)
-    override fun create(ID: String, dataProvider: AbstractDataProvider): InventoryPageOpenRequester {
+    override fun create(id: String, dataProvider: AbstractDataProvider): InventoryPageOpenRequester {
         val requester = InventoryPageOpenRequester()
         val configEntity =
-            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, ID)
-        val configurationSection = configEntity.data
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, id)
+        val configurationSection = configEntity!!.data
         if (dataProvider.contains("page_id")) {
             requester.pageId = dataProvider["page_id"] as String
         } else {

@@ -98,7 +98,9 @@ class Commands : CommandExecutor {
             } else if (args[0].equals("hotbar", ignoreCase = true)) {
                 try {
                     val hotbar = MinigamesDTools.instance!!.hotbarCreatorHub!!
-                        .createHotbar("example_skyhotbar", DataProvider())
+                        .createHotbar("example_skyhotbar",
+                            DataProvider()
+                        )
                     MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
                 } catch (e: Exception) {
                     e.printStackTrace()

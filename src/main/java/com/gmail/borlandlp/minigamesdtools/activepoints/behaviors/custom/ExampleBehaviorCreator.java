@@ -12,12 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "example_behavior")
-public class ExampleBehaviorCreator implements Creator {
-    @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
+public class ExampleBehaviorCreator extends Creator {
     @Override
     public Object create(String Id, AbstractDataProvider dataProvider) throws Exception {
         ExampleBehavior exampleBehavior = new ExampleBehavior();

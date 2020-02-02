@@ -7,13 +7,9 @@ import org.bukkit.Material
 import java.util.*
 
 @CreatorInfo(creatorId = "default_view_inventory_slot")
-class ExampleInventorySlotCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return ArrayList()
-    }
-
+class ExampleInventorySlotCreator : Creator() {
     @Throws(Exception::class)
-    override fun create(ID: String, dataProvider: AbstractDataProvider): InventorySlot {
-        return ExampleInventorySlot(dataProvider.get("id").toString(), Material.getMaterial(dataProvider.get("id").toString()), null)
+    override fun create(id: String, dataProvider: AbstractDataProvider): InventorySlot {
+        return ExampleInventorySlot(dataProvider["id"].toString(), Material.getMaterial(dataProvider["id"].toString()), null)
     }
 }

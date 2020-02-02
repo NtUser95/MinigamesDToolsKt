@@ -28,7 +28,8 @@ class InventoryListener : Listener {
         }
         var drawableInventory: DrawableInventory? = null
         try {
-            val dataProvider: AbstractDataProvider = DataProvider()
+            val dataProvider: AbstractDataProvider =
+                DataProvider()
             dataProvider["player"] = event.player
             drawableInventory = MinigamesDTools.instance!!.inventoryGUICreatorHub!!
                 .createInventory(event.pageID, dataProvider)

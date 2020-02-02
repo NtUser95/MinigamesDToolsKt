@@ -11,16 +11,15 @@ import com.gmail.borlandlp.minigamesdtools.gui.hotbar.items.SlotItem
 import org.bukkit.entity.Player
 
 @CreatorInfo(creatorId = "held_hotbar")
-class HeldHotbarCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return listOf("player")
-    }
+class HeldHotbarCreator : Creator() {
+    override val dataProviderRequiredFields: List<String>
+        get() = listOf("player")
 
     @Throws(Exception::class)
-    override fun create(hotbarID: String, dataProvider: AbstractDataProvider): Hotbar {
+    override fun create(id: String, dataProvider: AbstractDataProvider): Hotbar {
         val hotbarCfg =
-            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR, hotbarID).data
-                ?: throw Exception("cant find config file for hotbar[ID:$hotbarID]")
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR, id)!!.data
+                ?: throw Exception("cant find config file for hotbar[ID:$id]")
         val hotbar = HeldHotbar(dataProvider["player"] as Player)
         for (key in hotbarCfg.getConfigurationSection("slots").getKeys(false)) {
             val slotIndex = key.toInt()
@@ -29,13 +28,15 @@ class HeldHotbarCreator : Creator {
             if (MinigamesDTools.instance!!.hotbarItemCreatorHub!!.containsRouteId2Creator(slotID)) {
                 try {
                     slotItem =
-                        MinigamesDTools.instance!!.hotbarItemCreatorHub!!.createHotbarItem(slotID, DataProvider())
+                        MinigamesDTools.instance!!.hotbarItemCreatorHub!!.createHotbarItem(slotID,
+                            DataProvider()
+                        )
                     hotbar.setSlot(slotIndex, slotItem)
                 } catch (e: Exception) {
-                    throw Exception("Detected a factory problem for HotbarSlotConfig[ID:$slotID] for HotbarConfig[ID:$hotbarID]")
+                    throw Exception("Detected a factory problem for HotbarSlotConfig[ID:$slotID] for HotbarConfig[ID:$id]")
                 }
             } else {
-                throw Exception("Detected problem for HotbarSlotConfig[ID:$slotID] for HotbarConfig[ID:$hotbarID]")
+                throw Exception("Detected problem for HotbarSlotConfig[ID:$slotID] for HotbarConfig[ID:$id]")
             }
         }
 

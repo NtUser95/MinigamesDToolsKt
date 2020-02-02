@@ -24,12 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CreatorInfo(creatorId = "primitive_entity_creator")
-public class PrimitiveEntityCreator implements Creator {
-    @Override
-    public List<String> getDataProviderRequiredFields() {
-        return new ArrayList<>();
-    }
-
+public class PrimitiveEntityCreator extends Creator {
     @Override
     public ActivePoint create(String activepoint_id, AbstractDataProvider dataProvider) throws Exception {
         BossEntity activePoint = null;

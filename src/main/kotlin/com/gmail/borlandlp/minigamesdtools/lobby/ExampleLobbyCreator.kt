@@ -9,19 +9,15 @@ import com.gmail.borlandlp.minigamesdtools.util.ArenaUtils
 import java.util.*
 
 @CreatorInfo(creatorId = "default_server_lobby")
-class ExampleLobbyCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return ArrayList()
-    }
-
+class ExampleLobbyCreator : Creator() {
     @Throws(Exception::class)
-    override fun create(ID: String, dataProvider: AbstractDataProvider): Any {
+    override fun create(id: String, dataProvider: AbstractDataProvider): Any {
         val conf =
-            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.SERVER_LOBBY, ID).data
-                ?: throw Exception("Cant find config for $ID")
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.SERVER_LOBBY, id)!!.data
+                ?: throw Exception("Cant find config for $id")
         val serverLobby: ServerLobby = ExampleServerLobby()
         serverLobby.hotbarID = if (conf.contains("hotbar_id")) conf["hotbar_id"].toString() else null
-        serverLobby.id = ID
+        serverLobby.id = id
         serverLobby.spawnPoint =
             ArenaUtils.str2Loc(conf["spawn_point_XYZWorldYawPitch"].toString().split(":").toTypedArray())
         return serverLobby

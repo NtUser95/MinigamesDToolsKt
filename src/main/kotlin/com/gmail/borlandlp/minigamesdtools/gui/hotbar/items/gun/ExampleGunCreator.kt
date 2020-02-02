@@ -11,16 +11,12 @@ import java.lang.Boolean
 import java.util.*
 
 @CreatorInfo(creatorId = "example_gun")
-class ExampleGunCreator : Creator {
-    override fun getDataProviderRequiredFields(): List<String> {
-        return ArrayList()
-    }
-
+class ExampleGunCreator : Creator() {
     @Throws(Exception::class)
-    override fun create(ID: String, dataProvider: AbstractDataProvider): ExampleGun {
+    override fun create(id: String, dataProvider: AbstractDataProvider): ExampleGun {
         val slotItem = ExampleGun()
         val configurationSection =
-            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, ID).data
+            MinigamesDTools.instance!!.configProvider!!.getEntity(ConfigPath.HOTBAR_SLOTS, id)!!.data
         val activeIcon =
             ItemStack(Material.getMaterial(configurationSection["active_icon"].toString()))
         val unactiveIcon =

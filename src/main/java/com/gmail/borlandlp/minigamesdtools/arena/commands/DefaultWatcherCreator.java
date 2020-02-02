@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 
 @CreatorInfo(creatorId = "default_command_watcher")
-public class DefaultWatcherCreator implements Creator {
+public class DefaultWatcherCreator extends Creator {
     @Override
     public List<String> getDataProviderRequiredFields() {
         return Arrays.asList("blacklist_rules", "whitelist_rules", "arena_instance");
     }
 
     @Override
-    public DefaultWatcher create(String ID, AbstractDataProvider dataProvider) throws Exception {
+    public DefaultWatcher create(String id, AbstractDataProvider dataProvider) throws Exception {
         DefaultWatcher watcher = new DefaultWatcher();
         watcher.setBlacklisted((List<String[]>) dataProvider.get("blacklist_rules"));
         watcher.setWhitelisted((List<String[]>) dataProvider.get("whitelist_rules"));
