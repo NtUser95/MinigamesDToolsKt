@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack
 class Events : Listener {
     @EventHandler
     fun onArenaGameEnded(event: ArenaGameEndedEvent) {
-        MinigamesDTools.instance!!.arenaAPI!!.restartArena(event.arena.name)
+        MinigamesDTools.instance!!.arenaAPI!!.restartArena(event.arena.name!!)
     }
 
     @EventHandler
@@ -44,7 +44,7 @@ class Events : Listener {
     @EventHandler
     fun onMove(event: PlayerMoveEvent) {
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.player) ?: return
-        if (arena.gameRules.beforeFightDisableMoving && arena.state == ArenaBase.STATE.COUNTDOWN || arena.state == ArenaBase.STATE.PAUSED) {
+        if (arena.gameRules!!.beforeFightDisableMoving && arena.state == ArenaBase.STATE.COUNTDOWN || arena.state == ArenaBase.STATE.PAUSED) {
             if (event.from.x != event.to.x || event.from.y != event.to.y || event.from.z != event.to.z) {
                 event.isCancelled = true
             }
@@ -64,14 +64,20 @@ class Events : Listener {
         if (arena.state != ArenaBase.STATE.EMPTY) {
             if (player.health - event.finalDamage <= 0.0) {
                 event.damage = 0.0
-                val arenaEvent = ArenaPlayerDeathLocalEvent(player)
+                val arenaEvent =
+                    ArenaPlayerDeathLocalEvent(
+                        player
+                    )
                 arena.eventAnnouncer.announce(arenaEvent)
                 if (arenaEvent.isCancelled) {
                     event.isCancelled = true
                 }
             } else {
                 val arenaEvent =
-                    ArenaPlayerDamagedLocalEvent(player, event.finalDamage)
+                    ArenaPlayerDamagedLocalEvent(
+                        player,
+                        event.finalDamage
+                    )
                 arena.eventAnnouncer.announce(arenaEvent)
                 if (arenaEvent.isCancelled) {
                     event.isCancelled = true
@@ -91,11 +97,11 @@ class Events : Listener {
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(player) ?: return
         if (arena.state != ArenaBase.STATE.EMPTY) {
             if (event.damager is Player) {
-                val isFriendFire = arena.teamController.getPlayersRelative(
+                val isFriendFire = arena.teamController!!.getPlayersRelative(
                         player,
                         event.damager as Player
                     ) == ArenaPlayersRelative.TEAMMATE
-                if (isFriendFire && !arena.teamController.getTeamOf(player).friendlyFireAllowed()) {
+                if (isFriendFire && !arena.teamController!!.getTeamOf(player)!!.isFriendlyFireAllowed) {
                     event.isCancelled = true
                     event.damager.sendMessage("{attack_teammate_msg}")
                     return
@@ -105,11 +111,19 @@ class Events : Listener {
             if (player.health - event.finalDamage <= 0.0) {
                 event.damage = 0.0
                 event.isCancelled = true
-                val arenaEvent = ArenaPlayerKilledLocalEvent(player, event.damager)
+                val arenaEvent =
+                    ArenaPlayerKilledLocalEvent(
+                        player,
+                        event.damager
+                    )
                 arena.eventAnnouncer.announce(arenaEvent)
             } else {
                 val arenaEvent =
-                    ArenaEntityDamagePlayerLocalEvent(event.damager, player, event.finalDamage)
+                    ArenaEntityDamagePlayerLocalEvent(
+                        event.damager,
+                        player,
+                        event.finalDamage
+                    )
                 arena.eventAnnouncer.announce(arenaEvent)
                 if (arenaEvent.isCancelled) {
                     event.isCancelled = true
@@ -125,7 +139,8 @@ class Events : Listener {
     fun onPlayerDeathEvent(event: PlayerDeathEvent) {
         val player = event.entity ?: return
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(player) ?: return
-        val arenaEvent = ArenaPlayerDeathLocalEvent(player)
+        val arenaEvent =
+            ArenaPlayerDeathLocalEvent(player)
         arena.eventAnnouncer.announce(arenaEvent)
     }
 
@@ -141,7 +156,7 @@ class Events : Listener {
 
         val player = event.entity as Player
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(player) ?: return
-        event.isCancelled = arena.state != ArenaBase.STATE.EMPTY && arena.gameRules.hungerDisable
+        event.isCancelled = arena.state != ArenaBase.STATE.EMPTY && arena.gameRules!!.hungerDisable
     }
 
     @EventHandler
@@ -156,7 +171,11 @@ class Events : Listener {
     fun onPlayerKick(event: PlayerKickEvent) {
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.player) ?: return
         if (arena.state != ArenaBase.STATE.EMPTY) {
-            arena.eventAnnouncer.announce(ArenaPlayerLeaveLocalEvent(event.player))
+            arena.eventAnnouncer.announce(
+                ArenaPlayerLeaveLocalEvent(
+                    event.player
+                )
+            )
         }
     }
 
@@ -164,7 +183,11 @@ class Events : Listener {
     fun onLogout(event: PlayerQuitEvent) {
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.player) ?: return
         if (arena.state != ArenaBase.STATE.EMPTY) {
-            arena.eventAnnouncer.announce(ArenaPlayerLeaveLocalEvent(event.player))
+            arena.eventAnnouncer.announce(
+                ArenaPlayerLeaveLocalEvent(
+                    event.player
+                )
+            )
         }
     }
 
@@ -199,7 +222,7 @@ class Events : Listener {
     @EventHandler
     fun onPlayerDrop(event: PlayerDropItemEvent) {
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.player) ?: return
-        event.isCancelled = !arena.gameRules.playerCanItemDrop && arena.state != ArenaBase.STATE.EMPTY
+        event.isCancelled = !arena.gameRules!!.playerCanItemDrop && arena.state != ArenaBase.STATE.EMPTY
     }
 
     @EventHandler
@@ -208,7 +231,7 @@ class Events : Listener {
             return
         }
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.entity as Player) ?: return
-        event.isCancelled = !arena.gameRules.playerCanItemPickup && arena.state != ArenaBase.STATE.EMPTY
+        event.isCancelled = !arena.gameRules!!.playerCanItemPickup && arena.state != ArenaBase.STATE.EMPTY
     }
 
     @EventHandler
@@ -235,7 +258,7 @@ class Events : Listener {
     fun onRegain(event: EntityRegainHealthEvent) {
         if (event.entity !is Player) return
         val arena = MinigamesDTools.instance!!.arenaAPI!!.getArenaOf(event.entity as Player) ?: return
-        event.isCancelled = !arena.gameRules.playerCanRegainHealth
+        event.isCancelled = !arena.gameRules!!.playerCanRegainHealth
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

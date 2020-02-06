@@ -74,7 +74,7 @@ class Commands : CommandExecutor {
                 return true
             } else if (args[0].equals("dbg_state", ignoreCase = true)) {
                 val state = ArenaBase.STATE.valueOf(args[2])
-                MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1]).state = state
+                MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1])!!.state = state
                 player.sendMessage(
                     "dbg_state:" + args[1] + " " + MinigamesDTools.instance!!.arenaAPI!!.getArena(
                         args[1]
@@ -83,14 +83,14 @@ class Commands : CommandExecutor {
                 return true
             } else if (args[0].equals("dbg_members", ignoreCase = true)) {
                 player.sendMessage("===dbg_teams===")
-                for (team in MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1]).teamController.teams) {
+                for (team in MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1])!!.teamController!!.teams) {
                     player.sendMessage("dbg_teams->" + args[1] + ":" + team.name + "#" + team.players)
                 }
                 return true
             } else if (args[0].equals("dbg_start", ignoreCase = true)) {
                 player.sendMessage("===arena_start===")
                 try {
-                    MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1]).startArena()
+                    MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1])!!.startArena()
                 } catch (e: ArenaAlreadyStartedException) {
                     e.printStackTrace()
                 }
@@ -108,7 +108,7 @@ class Commands : CommandExecutor {
             } else if (args[0].equals("dbg_stop", ignoreCase = true)) {
                 player.sendMessage("===arena_stop===")
                 player.sendMessage("stopped" + args[1])
-                MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1]).forceDisable()
+                MinigamesDTools.instance!!.arenaAPI!!.getArena(args[1])!!.forceDisable()
                 return true
             } else if (args[0].equals("leave", ignoreCase = true)) {
                 MinigamesDTools.instance!!.arenaAPI!!.arenaLeaveRequest(player)
@@ -130,7 +130,7 @@ class Commands : CommandExecutor {
                     msg = (" -" + ChatColor.GREEN + arena.name
                             + ChatColor.GRAY + " [ID:" + arena.gameId + "]"
                             + ChatColor.GREEN + " state:'" + ChatColor.DARK_GREEN + arena.state + ChatColor.GREEN + "'"
-                            + " players:'" + ChatColor.DARK_GREEN + arena.teamController.countCurrentPlayers() + ChatColor.GREEN + "'")
+                            + " players:'" + ChatColor.DARK_GREEN + arena.teamController!!.countCurrentPlayers() + ChatColor.GREEN + "'")
                     player.sendMessage(msg)
                 }
             }

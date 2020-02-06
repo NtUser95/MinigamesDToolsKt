@@ -42,8 +42,7 @@ import java.util.*
 class DefaultCreatorsLoader {
     private val hubs: MutableMap<ConfigPath, CreatorHub?> = Hashtable()
     private fun linkCreators(path: ConfigPath) {
-        val keys =
-            instance!!.configProvider!!.getPoolContents(path)
+        val keys = instance!!.configProvider!!.getPoolContents(path)
         for (configEntity in keys) {
             val conf =
                 instance!!.configProvider!!.getEntity(path, configEntity.id)!!.data

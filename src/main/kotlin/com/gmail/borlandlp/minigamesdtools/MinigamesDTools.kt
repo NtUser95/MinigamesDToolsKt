@@ -163,15 +163,19 @@ class MinigamesDTools : JavaPlugin() {
         activePointsCreatorHub =
             ActivePointsCreatorHub()
         scenarioCreatorHub = ScenarioCreatorHub()
-        scenarioChainCreatorHub = ScenarioChainCreatorHub()
+        scenarioChainCreatorHub =
+            ScenarioChainCreatorHub()
         arenaCreatorHub = ArenaCreatorHub()
         teamCreatorHub = TeamCreatorHub()
-        arenaLobbyCreatorHub = ArenaLobbyCreatorHub()
-        chunkLoaderCreator = ChunkLoaderCreator()
+        arenaLobbyCreatorHub =
+            ArenaLobbyCreatorHub()
+        chunkLoaderCreator =
+            ChunkLoaderCreator()
         inventoryGuiSlotCreatorHub = InventoryGuiSlotCreatorHub()
         conditionsCreatorHub = ConditionsCreatorHub()
         bulletCreatorHub = BulletCreatorHub()
-        commandWatcherCreatorHub = CommandWatcherCreatorHub()
+        commandWatcherCreatorHub =
+            CommandWatcherCreatorHub()
         entityAPI = EntityController()
         inventoryGUICreatorHub = InventoryGUICreatorHub()
         inventoryGUI_API = ViewManager()
