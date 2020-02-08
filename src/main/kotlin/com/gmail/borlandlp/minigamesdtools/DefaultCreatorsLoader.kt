@@ -41,21 +41,17 @@ import java.util.*
 
 class DefaultCreatorsLoader {
     private val hubs: MutableMap<ConfigPath, CreatorHub?> = Hashtable()
+
     private fun linkCreators(path: ConfigPath) {
-        val keys = instance!!.configProvider!!.getPoolContents(path)
-        for (configEntity in keys) {
-            val conf =
-                instance!!.configProvider!!.getEntity(path, configEntity.id)!!.data
+        instance!!.configProvider!!.getPoolContents(path).forEach { configEntity ->
+            val conf = instance!!.configProvider!!.getEntity(path, configEntity.id)!!.data
             try {
                 val creatorHub = hubs[path]
                 val configEntityId = configEntity.id
                 val creatorId = conf["creator_id"].toString()
                 creatorHub!!.registerRouteId2Creator(configEntityId, creatorId)
             } catch (e: Exception) {
-                print(
-                    Debug.LEVEL.WARNING,
-                    "Error while link creator: " + configEntity.id
-                )
+                print( Debug.LEVEL.WARNING, "Error while link creator: " + configEntity.id)
                 e.printStackTrace()
             }
         }
