@@ -1,5 +1,6 @@
 package com.gmail.borlandlp.minigamesdtools.arena.scenario.simplyteampvp
 
+import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaEventListener
 import com.gmail.borlandlp.minigamesdtools.arena.localevent.ArenaEventHandler
@@ -20,6 +21,9 @@ class ExampleScenario : ScenarioAbstract() {
             e.printStackTrace()
         }
         try {
+            Debug.print(Debug.LEVEL.NOTICE, instance!!.activePointsAPI!!.searchPointByID(
+                "example_sphereactivepoint"
+            ).toString())
             instance!!.activePointsAPI!!.activatePoint(
                 instance!!.activePointsAPI!!.searchPointByID(
                     "example_sphereactivepoint"

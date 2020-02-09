@@ -11,13 +11,14 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorInfo
 @CreatorInfo(creatorId = "team_increment_win_ticket_reaction")
 class TeamIncrementWinTicketsReactionCreator : Creator() {
     override val dataProviderRequiredFields: List<String>
-        get() = listOf("active_point_instance", "value")
+        get() = listOf("active_point_instance")
 
     @Throws(Exception::class)
     override fun create(id: String, dataProvider: AbstractDataProvider): Reaction {
         return TeamIncrementWinTicketsReaction().apply {
             this.activePoint = dataProvider["active_point_instance"] as ActivePoint
-            this.value = dataProvider["value"].toString().toInt()
+            val configEntity = instance!!.configProvider!!.getEntity("active_point_reactions", id)!!
+            this.value = configEntity.data["value"].toString().toInt()
         }
     }
 }

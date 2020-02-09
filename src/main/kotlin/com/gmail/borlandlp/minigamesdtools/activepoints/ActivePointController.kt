@@ -22,7 +22,7 @@ class ActivePointController : APIComponent, ActivePointsAPI {
 
     override fun onLoad() {
         listener = ActivePointsListener(this).apply {
-            instance!!.server.pluginManager.registerEvents(listener, instance)
+            instance!!.server.pluginManager.registerEvents(this, instance)
         }
         val task = this
         this.task = object : BukkitRunnable() {
@@ -31,26 +31,18 @@ class ActivePointController : APIComponent, ActivePointsAPI {
             }
         }.runTaskTimer(instance, 0, 20)
         // load default activepoints
-        val poolContents =
-            instance!!.configProvider!!.getPoolContents(ConfigPath.ACTIVE_POINT)
-        for (configEntity in poolContents) {
-            print(
-                Debug.LEVEL.NOTICE,
-                "[ActivePointController] load activePoint " + configEntity.id
-            )
-            var activePoint: ActivePoint? = null
-            try {
-                activePoint = instance!!.activePointsCreatorHub!!.createActivePoint(configEntity.id, DataProvider())
+        instance!!.configProvider!!.getPoolContents(ConfigPath.ACTIVE_POINT).forEach { configEntity ->
+            print(Debug.LEVEL.NOTICE, "[ActivePointController] load activePoint " + configEntity.id)
+            val activePoint: ActivePoint? = try {
+                instance!!.activePointsCreatorHub!!.createActivePoint(configEntity.id, DataProvider())
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
             if (activePoint != null) {
                 registerPoint(activePoint)
             } else {
-                print(
-                    Debug.LEVEL.WARNING,
-                    "[ActivePointController] fail on load activePoint " + configEntity.id
-                )
+                print(Debug.LEVEL.WARNING, "[ActivePointController] fail on load activePoint " + configEntity.id)
             }
         }
     }

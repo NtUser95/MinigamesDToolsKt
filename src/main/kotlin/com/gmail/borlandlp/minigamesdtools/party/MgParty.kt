@@ -11,7 +11,7 @@ import java.util.stream.Collectors
 
 class MgParty(leader: Player) : Party {
     private val members: MutableMap<String, Player> = HashMap()
-    override var leader: Player = TODO()
+    override var leader: Player = leader
         set(value) {
             if (members.containsKey(value.name)) {
                 Bukkit.getPluginManager().callEvent(PartyChangeLeaderEvent(this, leader, value))
@@ -23,7 +23,7 @@ class MgParty(leader: Player) : Party {
         members[player.name] = player
         Bukkit.getPluginManager().callEvent(PartyPlayerJoinedEvent(this, player))
     }
-    override var players
+    override val players: MutableList<Player>
         get() = ArrayList(members.values)
     override fun removePlayer(player: Player) {
         if (members.remove(player.name) != null) {

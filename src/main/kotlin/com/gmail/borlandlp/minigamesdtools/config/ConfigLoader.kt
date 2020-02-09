@@ -9,6 +9,7 @@ import java.util.*
 
 class ConfigLoader {
     private val paths: MutableList<File> = ArrayList()
+
     @Throws(InvalidPathException::class)
     fun addPath(path2Load: File) {
         if (!path2Load.isDirectory) {

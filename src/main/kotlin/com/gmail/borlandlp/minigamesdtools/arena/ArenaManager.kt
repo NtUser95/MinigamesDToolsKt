@@ -36,6 +36,7 @@ class ArenaManager : APIComponent, ArenaAPI {
         }
         for (arenaName in reg2Load) {
             try {
+                print(Debug.LEVEL.NOTICE, "Start load arena '$arenaName'")
                 arena = instance!!.arenaCreatorHub!!.createArena(arenaName, DataProvider())
                 try {
                     arena.initializeComponents()
@@ -44,13 +45,9 @@ class ArenaManager : APIComponent, ArenaAPI {
                     continue
                 }
                 addArena(arena)
-                print(
-                    Debug.LEVEL.NOTICE,
-                    "successful load arena '$arenaName'"
-                )
+                print(Debug.LEVEL.NOTICE, "successful load arena '$arenaName'")
             } catch (ex: Exception) {
-                instance!!.logger
-                    .log(Level.WARNING, " failed to load arena $arenaName")
+                instance!!.logger.log(Level.WARNING, " failed to load arena $arenaName")
                 ex.printStackTrace()
             }
         }

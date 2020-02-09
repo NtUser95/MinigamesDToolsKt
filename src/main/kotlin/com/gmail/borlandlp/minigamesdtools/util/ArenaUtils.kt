@@ -32,6 +32,7 @@ object ArenaUtils {
         }
     }
 
+    @JvmStatic
     fun sendMessage(
         player: Player,
         chatMessageType: ChatMessageType?,
@@ -43,6 +44,7 @@ object ArenaUtils {
         (player as CraftPlayer).handle.playerConnection.sendPacket(packet)
     }
 
+    @JvmStatic
     fun getNearestEntity(
         location: Location,
         entityCollection: List<Entity>
@@ -78,6 +80,7 @@ object ArenaUtils {
         return loc
     }
 
+    @JvmStatic
     fun loc2Str(loc: Location): Array<String> {
         val strs: MutableList<String> = ArrayList()
         strs.add(loc.blockX.toString() + "")

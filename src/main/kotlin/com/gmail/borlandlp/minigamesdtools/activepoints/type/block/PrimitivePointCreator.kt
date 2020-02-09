@@ -27,17 +27,12 @@ class PrimitivePointCreator : Creator() {
         //init by type
         val debugPrefix = "[$id] "
         // TODO: Refactoring????????????????
-        val formOfPoint = activePointConfig["params.form"].toString()
-        val activePoint = if (formOfPoint == "sphere") {
-            SphereBlockPoint()
-        } else if (formOfPoint == "flat_sphere") {
-            FlatSpherePoint()
-        } else if (formOfPoint == "square") {
-            SquareBlockPoint()
-        } else if (formOfPoint == "flat_square") {
-            FlatSquarePoint()
-        } else {
-            throw Exception("invalid form for ActivePoint[ID:$id]")
+        val activePoint = when (activePointConfig["params.form"].toString()) {
+            "sphere" -> SphereBlockPoint()
+            "flat_sphere" -> FlatSpherePoint()
+            "square" -> SquareBlockPoint()
+            "flat_square" -> FlatSquarePoint()
+            else -> throw Exception("invalid form for ActivePoint[ID:$id]")
         }
         val world = Bukkit.getWorld(activePointConfig["params.location.world"].toString())
         val x = activePointConfig["params.location.x"].toString().toInt()
@@ -87,10 +82,7 @@ class PrimitivePointCreator : Creator() {
                 debugPrefix + "Done load damage reactions for" + id
             )
         } else {
-            print(
-                Debug.LEVEL.NOTICE,
-                debugPrefix + "Not found a damage reactions."
-            )
+            print(Debug.LEVEL.NOTICE, debugPrefix + "Not found a damage reactions.")
             activePoint.isPerformDamage = false
         }
         if (activePointConfig.contains("reactions.check_intersect.enabled")) {
