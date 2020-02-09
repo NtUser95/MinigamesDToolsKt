@@ -11,7 +11,6 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
-import java.util.*
 
 abstract class ActivePoint {
     var name: String? = null

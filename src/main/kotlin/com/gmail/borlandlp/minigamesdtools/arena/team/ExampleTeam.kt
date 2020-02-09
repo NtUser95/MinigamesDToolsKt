@@ -177,7 +177,7 @@ class ExampleTeam(
         if ((respawnLobby as ArenaLobby?)!!.isEnabled) {
             respawnLobby!!.update()
             val respPlayers = respawnLobby!!.readyPlayersToRespawn
-            if (respPlayers.size > 0) {
+            if (respPlayers.isNotEmpty()) {
                 for (player in respPlayers) {
                     respawnLobby!!.removePlayer(player)
                     lobbyPlayers.remove(player) // TODO: переделать в нечто осмысленное

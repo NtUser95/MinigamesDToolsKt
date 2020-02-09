@@ -12,10 +12,8 @@ import net.minecraft.server.v1_12_R1.Vec3D
 import kotlin.collections.ArrayList
 
 class EntityController : EntityAPI, APIComponent {
-    override val paths: MutableMap<IMoveControllableEntity, PathController>
-        get() = paths.toMutableMap()
-    private val registeredEntity: MutableList<RegisteredEntity> =
-        ArrayList()
+    override val paths: MutableMap<IMoveControllableEntity, PathController> = mutableMapOf()
+    private val registeredEntity: MutableList<RegisteredEntity> = mutableListOf()
 
     override fun register(
         name: String,

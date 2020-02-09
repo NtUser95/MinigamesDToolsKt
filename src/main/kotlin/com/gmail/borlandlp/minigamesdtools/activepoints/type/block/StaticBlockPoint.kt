@@ -21,13 +21,11 @@ abstract class StaticBlockPoint : ActivePoint() {
                 location.world.getBlockAt(location).type = buildSchema[location]
             } catch (e: Exception) {
                 e.printStackTrace()
+                print(Debug.LEVEL.WARNING, "${javaClass::getSimpleName}->spawn() :: arena:${activePointController} :: Missing block in BuildSchema for $location")
             }
             activePointController!!.staticPointsCache.add(location, this)
         }
-        print(
-            Debug.LEVEL.NOTICE,
-            "spawn static point " + name + ". size:" + buildSchema.keys.size
-        )
+        print(Debug.LEVEL.NOTICE, "spawn static point $name. size:${buildSchema.keys.size}")
         usedBlocks = ArrayList(buildSchema.keys)
         isSpawned = true
     }
@@ -37,7 +35,7 @@ abstract class StaticBlockPoint : ActivePoint() {
             location!!.world.getBlockAt(location).type = Material.AIR
             activePointController!!.staticPointsCache.remove(location!!)
         }.also {
-            print(Debug.LEVEL.NOTICE, "despawn static point " + name + ". size:" + usedBlocks.size )
+            print(Debug.LEVEL.NOTICE, "despawn static point $name. size:${usedBlocks.size}")
         }
 
         isSpawned = false
