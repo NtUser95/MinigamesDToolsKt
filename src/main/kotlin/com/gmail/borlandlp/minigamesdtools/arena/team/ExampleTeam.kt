@@ -20,7 +20,7 @@ class ExampleTeam(
     override var arena: ArenaBase
 ) : TeamProvider {
     override var respawnLobby: RespawnLobby? = null
-    override val spectatorLobby: SpectatorLobby? = null
+    override var spectatorLobby: SpectatorLobby? = null
     var maxPlayers = 0
     var spawnPoints: List<Location> = mutableListOf()
     var armor: MutableMap<String, ItemStack> = mutableMapOf()
@@ -208,8 +208,8 @@ class ExampleTeam(
 
     override fun onRoundEnd() {
         if (spectatorLobby!!.players.size > 0) {
-            for (player in spectatorLobby.players) {
-                spectatorLobby.removePlayer(player)
+            for (player in spectatorLobby!!.players) {
+                spectatorLobby!!.removePlayer(player)
             }
         }
     }

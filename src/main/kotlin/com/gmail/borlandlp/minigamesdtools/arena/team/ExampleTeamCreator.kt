@@ -115,29 +115,30 @@ class ExampleTeamCreator : Creator() {
         if (!fileConfiguration.contains("spectate_lobby.id")) {
             throw Exception("Arena must be config for spectate_lobby")
         }
+        print(Debug.LEVEL.NOTICE, "Build spectator lobby for Team[ID:$id]#${fileConfiguration["spectate_lobby.id"]}")
         val spectatorLobby = instance!!.arenaLobbyCreatorHub!!.createLobby(
             fileConfiguration["spectate_lobby.id"].toString(),
             DataProvider()
         ).apply {
             this.teamProvider = team
             this.isEnabled = true
+            team.spectatorLobby = this as SpectatorLobby
         }
-        print(Debug.LEVEL.NOTICE, "Build spectator lobby for Team[ID:$id]#$spectatorLobby")
+
+
         // starter lobby
         if (!fileConfiguration.contains("starter_lobby")) {
             throw Exception("Arena must be config for starter_lobby")
         }
+        print(Debug.LEVEL.NOTICE, "Build starter lobby for Team[ID:$id]#${fileConfiguration["starter_lobby.lobby_handler"]}")
         val starterLobby = instance!!.arenaLobbyCreatorHub!!.createLobby(
             fileConfiguration["starter_lobby.lobby_handler"].toString(),
             DataProvider()
         ).apply {
             this.teamProvider = team
             this.isEnabled = fileConfiguration["starter_lobby.enabled"].toString().toBoolean()
+            team.starterLobby = this as StarterLobby
         }
-        print(
-            Debug.LEVEL.NOTICE,
-            "Build starter lobby for Team[ID:$id]#$starterLobby"
-        )
         team.isFriendlyFireAllowed = fileConfiguration["friendly_fire"].toString().toBoolean()
 
         return team
