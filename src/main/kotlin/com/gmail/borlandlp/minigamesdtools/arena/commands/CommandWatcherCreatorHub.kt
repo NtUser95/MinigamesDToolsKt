@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class CommandWatcherCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createCommandWatcher(ID: String, dataProvider: AbstractDataProvider): ArenaCommandWatcher {
-        return create(ID, dataProvider) as ArenaCommandWatcher
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): ArenaCommandWatcher {
+        return super.create(itemID, dataProvider) as ArenaCommandWatcher
     }
 }

@@ -84,5 +84,4 @@ class GhostBullet(private val bukkitWorld: World) : EntityDragonFireball((bukkit
     override fun die() {
         super.die()
     }
-
 }

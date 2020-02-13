@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class InventoryGuiSlotCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createSlot(ID: String, dataProvider: AbstractDataProvider): InventorySlot {
-        return create(ID, dataProvider) as InventorySlot
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): InventorySlot {
+        return super.create(itemID, dataProvider) as InventorySlot
     }
 }

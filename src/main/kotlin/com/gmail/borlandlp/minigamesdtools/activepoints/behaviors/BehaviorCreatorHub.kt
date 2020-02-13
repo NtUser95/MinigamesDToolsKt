@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class BehaviorCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createBehavior(ID: String, dataProvider: AbstractDataProvider): Behavior {
-        return create(ID, dataProvider) as Behavior
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): Behavior {
+        return super.create(itemID, dataProvider) as Behavior
     }
 }

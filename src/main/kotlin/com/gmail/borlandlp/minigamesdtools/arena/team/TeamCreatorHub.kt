@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class TeamCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createTeam(ID: String, dataProvider: AbstractDataProvider): TeamProvider {
-        return create(ID, dataProvider) as TeamProvider
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): TeamProvider {
+        return super.create(itemID, dataProvider) as TeamProvider
     }
 }

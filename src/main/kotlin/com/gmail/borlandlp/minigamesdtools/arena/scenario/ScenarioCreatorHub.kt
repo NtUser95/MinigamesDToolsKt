@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class ScenarioCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createScenario(scenarioID: String, dataProvider: AbstractDataProvider): Scenario {
-        return create(scenarioID, dataProvider) as Scenario
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): Scenario {
+        return super.create(itemID, dataProvider) as Scenario
     }
 }

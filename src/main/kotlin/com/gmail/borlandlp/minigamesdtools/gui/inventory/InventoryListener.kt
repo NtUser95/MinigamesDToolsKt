@@ -1,6 +1,7 @@
 package com.gmail.borlandlp.minigamesdtools.gui.inventory
 
 import com.gmail.borlandlp.minigamesdtools.Debug
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools
 import com.gmail.borlandlp.minigamesdtools.creator.AbstractDataProvider
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
@@ -19,7 +20,7 @@ class InventoryListener : Listener {
     private val playersClickLog = HashMap<String, Long?>()
     @EventHandler
     fun onInvRequest(event: PlayerRequestOpenInvGUIEvent) {
-        if (!MinigamesDTools.instance!!.inventoryGUICreatorHub!!.containsRouteId2Creator(event.pageID)) {
+        if (!MinigamesDTools.instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI.pseudoName)!!.containsRouteId2Creator(event.pageID)) {
             Debug.print(
                 Debug.LEVEL.WARNING,
                 "Player[name:" + event.player.name + "] requested unknown Page[ID:" + event.pageID + "]"
@@ -31,8 +32,8 @@ class InventoryListener : Listener {
             val dataProvider: AbstractDataProvider =
                 DataProvider()
             dataProvider["player"] = event.player
-            drawableInventory = MinigamesDTools.instance!!.inventoryGUICreatorHub!!
-                .createInventory(event.pageID, dataProvider)
+            drawableInventory = MinigamesDTools.instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI.pseudoName)!!
+                .create(event.pageID, dataProvider) as DrawableInventory?
         } catch (e: Exception) {
             e.printStackTrace()
         }

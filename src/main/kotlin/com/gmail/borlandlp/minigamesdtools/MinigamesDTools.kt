@@ -66,8 +66,6 @@ class MinigamesDTools : JavaPlugin() {
         private set
     var lobbyHubAPI: LobbyServerAPI? = null
         private set
-    var arenaCreatorHub: ArenaCreatorHub? = null
-        private set
     // TODO: getCreatorHub(HeldHotbarCreator.class) as HeldHotbarCreator with generics
     var configProvider: ConfigProvider? = null
         private set
@@ -85,40 +83,9 @@ class MinigamesDTools : JavaPlugin() {
         private set
     var geoIpApi: GeoIpApi? = null
         private set
-    var guiCreatorHub: GUICreatorHub? = null
-        private set
-    var hotbarCreatorHub: HotbarCreatorHub? = null
-        private set
-    var hotbarItemCreatorHub: HotbarItemCreatorHub? = null
-        private set
-    var reactionCreatorHub: ReactionCreatorHub? = null
-        private set
-    var behaviorCreatorHub: BehaviorCreatorHub? = null
-        private set
-    var activePointsCreatorHub: ActivePointsCreatorHub? = null
-        private set
-    var scenarioCreatorHub: ScenarioCreatorHub? = null
-        private set
-    var scenarioChainCreatorHub: ScenarioChainCreatorHub? = null
-        private set
-    var teamCreatorHub: TeamCreatorHub? = null
-        private set
-    var inventoryGUICreatorHub: InventoryGUICreatorHub? = null
-        private set
-    var inventoryGuiSlotCreatorHub: InventoryGuiSlotCreatorHub? = null
-        private set
-    var lobbyCreatorHub: LobbyCreatorHub? = null
-        private set
     var chunkLoaderCreator: ChunkLoaderCreator? = null
         private set
-    var arenaLobbyCreatorHub: ArenaLobbyCreatorHub? = null
-        private set
-    var conditionsCreatorHub: ConditionsCreatorHub? = null
-        private set
-    var bulletCreatorHub: BulletCreatorHub? = null
-        private set
-    var commandWatcherCreatorHub: CommandWatcherCreatorHub? = null
-        private set
+    var creatorsRegistry: CreatorsRegistry = CreatorsRegistry()
 
     override fun onEnable() {
         instance = this
@@ -152,34 +119,28 @@ class MinigamesDTools : JavaPlugin() {
         configLoader = ConfigLoader()
         configLoader!!.addPath(dataFolder)
         configLoader!!.addPath(ConfigPath.ARENA_FOLDER.path)
-        // TODO: getCreatorHub(HeldHotbarCreator.class) as HeldHotbarCreator with generics
-        guiCreatorHub = GUICreatorHub()
-        hotbarCreatorHub = HotbarCreatorHub()
-        hotbarItemCreatorHub = HotbarItemCreatorHub()
-        reactionCreatorHub =
-            ReactionCreatorHub()
-        behaviorCreatorHub =
-            BehaviorCreatorHub()
-        activePointsCreatorHub =
-            ActivePointsCreatorHub()
-        scenarioCreatorHub = ScenarioCreatorHub()
-        scenarioChainCreatorHub =
-            ScenarioChainCreatorHub()
-        arenaCreatorHub = ArenaCreatorHub()
-        teamCreatorHub = TeamCreatorHub()
-        arenaLobbyCreatorHub =
-            ArenaLobbyCreatorHub()
-        chunkLoaderCreator =
-            ChunkLoaderCreator()
-        inventoryGuiSlotCreatorHub = InventoryGuiSlotCreatorHub()
-        conditionsCreatorHub = ConditionsCreatorHub()
-        bulletCreatorHub = BulletCreatorHub()
-        commandWatcherCreatorHub =
-            CommandWatcherCreatorHub()
-        entityAPI = EntityController()
-        inventoryGUICreatorHub = InventoryGUICreatorHub()
+        chunkLoaderCreator = ChunkLoaderCreator()
+
+        creatorsRegistry.register(GUICreatorHub(), DefaultCreators.DISPLAY_GUI.pseudoName)
+        creatorsRegistry.register(HotbarCreatorHub(), DefaultCreators.HOTBAR.pseudoName)
+        creatorsRegistry.register(HotbarItemCreatorHub(), DefaultCreators.HOTBAR_ITEM.pseudoName)
+        creatorsRegistry.register(ReactionCreatorHub(), DefaultCreators.REACTION.pseudoName)
+        creatorsRegistry.register(BehaviorCreatorHub(), DefaultCreators.BEHAVIOR.pseudoName)
+        creatorsRegistry.register(ActivePointsCreatorHub(), DefaultCreators.ACTIVE_POINTS.pseudoName)
+        creatorsRegistry.register(ScenarioCreatorHub(), DefaultCreators.SCENARIO.pseudoName)
+        creatorsRegistry.register(ScenarioChainCreatorHub(), DefaultCreators.SCENARIO_CHAIN.pseudoName)
+        creatorsRegistry.register(ArenaCreatorHub(), DefaultCreators.ARENA.pseudoName)
+        creatorsRegistry.register(TeamCreatorHub(), DefaultCreators.TEAM.pseudoName)
+        creatorsRegistry.register(ArenaLobbyCreatorHub(), DefaultCreators.ARENA_LOBBY.pseudoName)
+        creatorsRegistry.register(InventoryGuiSlotCreatorHub(), DefaultCreators.INVENTORY_GUI_SLOT.pseudoName)
+        creatorsRegistry.register(InventoryGUICreatorHub(), DefaultCreators.INVENTORY_GUI.pseudoName)
+        creatorsRegistry.register(ConditionsCreatorHub(), DefaultCreators.CONDITION.pseudoName)
+        creatorsRegistry.register(BulletCreatorHub(), DefaultCreators.BULLET.pseudoName)
+        creatorsRegistry.register(CommandWatcherCreatorHub(), DefaultCreators.COMMAND_WATCHER.pseudoName)
+        creatorsRegistry.register(LobbyCreatorHub(), DefaultCreators.SERVER_LOBBY.pseudoName)
+
         inventoryGUI_API = ViewManager()
-        lobbyCreatorHub = LobbyCreatorHub()
+        entityAPI = EntityController()
         activePointsAPI = ActivePointController()
         arenaAPI = ArenaManager()
         hotbarAPI = HotbarApiInst()

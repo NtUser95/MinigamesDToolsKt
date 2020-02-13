@@ -3,6 +3,7 @@ package com.gmail.borlandlp.minigamesdtools.activepoints
 import com.gmail.borlandlp.minigamesdtools.APIComponent
 import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.Debug.print
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.config.ConfigPath
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
@@ -34,7 +35,7 @@ class ActivePointController : APIComponent, ActivePointsAPI {
         instance!!.configProvider!!.getPoolContents(ConfigPath.ACTIVE_POINT).forEach { configEntity ->
             print(Debug.LEVEL.NOTICE, "[ActivePointController] load activePoint " + configEntity.id)
             val activePoint: ActivePoint? = try {
-                instance!!.activePointsCreatorHub!!.createActivePoint(configEntity.id, DataProvider())
+                instance!!.creatorsRegistry.get(DefaultCreators.ACTIVE_POINTS.pseudoName)!!.create(configEntity.id, DataProvider()) as ActivePoint
             } catch (e: Exception) {
                 e.printStackTrace()
                 null

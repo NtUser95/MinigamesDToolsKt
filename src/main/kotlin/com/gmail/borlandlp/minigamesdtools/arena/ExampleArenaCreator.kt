@@ -2,12 +2,17 @@ package com.gmail.borlandlp.minigamesdtools.arena
 
 import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.Debug.print
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.chunkloader.ChunkLoaderController
 import com.gmail.borlandlp.minigamesdtools.arena.chunkloader.ChunksLoader
+import com.gmail.borlandlp.minigamesdtools.arena.commands.ArenaCommandWatcher
 import com.gmail.borlandlp.minigamesdtools.arena.gui.hotbar.HotbarController
 import com.gmail.borlandlp.minigamesdtools.arena.gui.providers.GUIController
+import com.gmail.borlandlp.minigamesdtools.arena.gui.providers.GUIProvider
+import com.gmail.borlandlp.minigamesdtools.arena.scenario.ScenarioChainController
 import com.gmail.borlandlp.minigamesdtools.arena.team.TeamController
+import com.gmail.borlandlp.minigamesdtools.arena.team.TeamProvider
 import com.gmail.borlandlp.minigamesdtools.conditions.AbstractCondition
 import com.gmail.borlandlp.minigamesdtools.conditions.ConditionsChain
 import com.gmail.borlandlp.minigamesdtools.config.ConfigPath
@@ -82,7 +87,7 @@ class ExampleArenaCreator : Creator() {
         guiController.arena = builder.arena
         for (GUI_ID in arenaConfig.getStringList("gui_provider")) {
             val guiProvider =
-                instance!!.guiCreatorHub!!.createGuiProvider(GUI_ID!!, DataProvider())
+                instance!!.creatorsRegistry.get(DefaultCreators.DISPLAY_GUI.pseudoName)!!.create(GUI_ID!!, DataProvider()) as GUIProvider
             guiProvider.arena = builder.arena
             guiController.addProvider(guiProvider)
         }
@@ -94,10 +99,10 @@ class ExampleArenaCreator : Creator() {
         val abstractDataProvider: AbstractDataProvider = DataProvider()
         abstractDataProvider["arena_instance"] = builder.arena
         val scenarioChainController =
-            instance!!.scenarioChainCreatorHub!!.createChain(
+            instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO_CHAIN.pseudoName)!!.create(
                 arenaConfig["scenarios_chain"].toString(),
                 abstractDataProvider
-            )
+            ) as ScenarioChainController
         builder.setScenarioChainController(scenarioChainController)
         print(
             Debug.LEVEL.NOTICE,
@@ -106,7 +111,7 @@ class ExampleArenaCreator : Creator() {
         val teamController = TeamController(builder.arena)
         for (teamID in arenaConfig.getStringList("teams")) {
             val teamProvider =
-                instance!!.teamCreatorHub!!.createTeam(teamID!!, abstractDataProvider)
+                instance!!.creatorsRegistry.get(DefaultCreators.TEAM.pseudoName)!!.create(teamID!!, abstractDataProvider) as TeamProvider
             teamProvider.arena = builder.arena
             teamController.addTeam(teamProvider)
         }
@@ -119,10 +124,10 @@ class ExampleArenaCreator : Creator() {
         val conditions: MutableList<AbstractCondition> = ArrayList()
         for (conditionId in arenaConfig.getStringList("join_conditions")) {
             conditions.add(
-                instance!!.conditionsCreatorHub!!.createCondition(
+                instance!!.creatorsRegistry.get(DefaultCreators.CONDITION.pseudoName)!!.create(
                     conditionId!!,
                     abstractDataProvider
-                )
+                ) as AbstractCondition
             )
         }
         builder.setJoinConditionsChain(ConditionsChain(conditions))
@@ -219,8 +224,7 @@ class ExampleArenaCreator : Creator() {
                 .forEach(Consumer { e: String -> whitelisted.add(e.split(" ").toTypedArray()) })
             cDataProvider["whitelist_rules"] = whitelisted
             val handlerID = arenaConfig["commands.handler"].toString()
-            val creatorHub = instance!!.commandWatcherCreatorHub
-            val watcher = creatorHub!!.createCommandWatcher(handlerID, cDataProvider)
+            val watcher = instance!!.creatorsRegistry.get(DefaultCreators.COMMAND_WATCHER.pseudoName)!!.create(handlerID, cDataProvider) as ArenaCommandWatcher
             arenaTemplate.phaseComponentController.register(watcher)
         }
         print(

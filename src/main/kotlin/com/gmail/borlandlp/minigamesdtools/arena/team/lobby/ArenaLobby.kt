@@ -1,5 +1,6 @@
 package com.gmail.borlandlp.minigamesdtools.arena.team.lobby
 
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.team.TeamProvider
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
@@ -17,11 +18,11 @@ abstract class ArenaLobby {
     fun getHotbarFor(player: Player): Hotbar? {
         var hotbar: Hotbar? = null
         try {
-            hotbar = instance!!.hotbarCreatorHub!!.createHotbar(
+            hotbar = instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!.create(
                 hotbarId!!,
                 DataProvider().apply {
                     this["player"] = player
-                })
+                }) as Hotbar
         } catch (e: Exception) {
             e.printStackTrace()
         }

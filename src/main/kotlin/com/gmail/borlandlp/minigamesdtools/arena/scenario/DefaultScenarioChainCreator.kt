@@ -1,5 +1,6 @@
 package com.gmail.borlandlp.minigamesdtools.arena.scenario
 
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaBase
 import com.gmail.borlandlp.minigamesdtools.config.ConfigPath
@@ -21,7 +22,7 @@ class DefaultScenarioChainCreator : Creator() {
             val scenarioID =
                 configurationSection["chain.$scenarioPhase.scenario_id"].toString()
             val scenario =
-                instance!!.scenarioCreatorHub!!.createScenario(scenarioID, dataProvider)
+                instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO.pseudoName)!!.create(scenarioID, dataProvider) as Scenario?
             if (scenario != null) {
                 scenarioMap[scenarioPhase] = scenario
             } else {

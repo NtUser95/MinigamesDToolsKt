@@ -1,10 +1,12 @@
 package com.gmail.borlandlp.minigamesdtools.listener
 
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaBase
 import com.gmail.borlandlp.minigamesdtools.arena.exceptions.ArenaAlreadyStartedException
 import com.gmail.borlandlp.minigamesdtools.config.exception.InvalidPathException
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
+import com.gmail.borlandlp.minigamesdtools.gui.hotbar.Hotbar
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -97,11 +99,14 @@ class Commands : CommandExecutor {
                 return true
             } else if (args[0].equals("hotbar", ignoreCase = true)) {
                 try {
-                    val hotbar = MinigamesDTools.instance!!.hotbarCreatorHub!!
-                        .createHotbar("example_skyhotbar",
+                    MinigamesDTools.instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!
+                        .create("example_skyhotbar",
                             DataProvider()
-                        )
-                    MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
+                        ).apply {
+                            if (this is Hotbar) {
+                                MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(this, player)
+                            }
+                        }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

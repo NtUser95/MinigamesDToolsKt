@@ -1,5 +1,6 @@
 package com.gmail.borlandlp.minigamesdtools.arena.gui.hotbar
 
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaComponent
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaEventListener
@@ -18,9 +19,9 @@ class HotbarController : ArenaComponent(), ArenaPhaseComponent {
     @Throws(Exception::class)
     fun buildDefaultHotbarFor(player: Player): Hotbar {
         val hotbarID = defaultHotbarId
-        return instance!!.hotbarCreatorHub!!.createHotbar(hotbarID!!, DataProvider().apply {
+        return instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!.create(hotbarID!!, DataProvider().apply {
             this["player"] = player
-        })
+        }) as Hotbar
     }
 
     override fun onInit() {

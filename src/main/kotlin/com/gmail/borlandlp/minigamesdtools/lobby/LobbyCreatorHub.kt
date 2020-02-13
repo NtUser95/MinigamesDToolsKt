@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class LobbyCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createLobby(ID: String, dataProvider: AbstractDataProvider): ServerLobby {
-        return create(ID, dataProvider) as ServerLobby
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): ServerLobby {
+        return super.create(itemID, dataProvider) as ServerLobby
     }
 }

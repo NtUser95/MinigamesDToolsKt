@@ -2,6 +2,7 @@ package com.gmail.borlandlp.minigamesdtools.arena.team
 
 import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.Debug.print
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaBase
 import com.gmail.borlandlp.minigamesdtools.arena.team.lobby.ArenaLobby
@@ -91,13 +92,16 @@ class ExampleTeamCreator : Creator() {
         team.inventory = inventory.filterNotNull().toMutableList()
         // respawn lobby
         if (fileConfiguration.contains("respawn_lobby.enabled") && fileConfiguration["respawn_lobby.enabled"].toString().toBoolean()) {
-            val respawnLobby = instance!!.arenaLobbyCreatorHub!!.createLobby(
+            val respawnLobby = instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.create(
                 fileConfiguration["respawn_lobby.lobby_handler"].toString(),
                 DataProvider()
-            )
-            respawnLobby.teamProvider = team
-            respawnLobby.isEnabled = true
-            team.respawnLobby = respawnLobby as RespawnLobby
+            ).apply {
+                if(this is ArenaLobby) {
+                    this.teamProvider = team
+                    this.isEnabled = true
+                    team.respawnLobby = this as RespawnLobby
+                }
+            }
             print(
                 Debug.LEVEL.NOTICE,
                 "Build respawn lobby for Team[ID:$id]#$respawnLobby"
@@ -116,13 +120,15 @@ class ExampleTeamCreator : Creator() {
             throw Exception("Arena must be config for spectate_lobby")
         }
         print(Debug.LEVEL.NOTICE, "Build spectator lobby for Team[ID:$id]#${fileConfiguration["spectate_lobby.id"]}")
-        val spectatorLobby = instance!!.arenaLobbyCreatorHub!!.createLobby(
+        instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.create(
             fileConfiguration["spectate_lobby.id"].toString(),
             DataProvider()
         ).apply {
-            this.teamProvider = team
-            this.isEnabled = true
-            team.spectatorLobby = this as SpectatorLobby
+            if (this is ArenaLobby) {
+                this.teamProvider = team
+                this.isEnabled = true
+                team.spectatorLobby = this as SpectatorLobby
+            }
         }
 
 
@@ -131,13 +137,15 @@ class ExampleTeamCreator : Creator() {
             throw Exception("Arena must be config for starter_lobby")
         }
         print(Debug.LEVEL.NOTICE, "Build starter lobby for Team[ID:$id]#${fileConfiguration["starter_lobby.lobby_handler"]}")
-        val starterLobby = instance!!.arenaLobbyCreatorHub!!.createLobby(
+        instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.create(
             fileConfiguration["starter_lobby.lobby_handler"].toString(),
             DataProvider()
         ).apply {
-            this.teamProvider = team
-            this.isEnabled = fileConfiguration["starter_lobby.enabled"].toString().toBoolean()
-            team.starterLobby = this as StarterLobby
+            if (this is ArenaLobby) {
+                this.teamProvider = team
+                this.isEnabled = fileConfiguration["starter_lobby.enabled"].toString().toBoolean()
+                team.starterLobby = this as StarterLobby
+            }
         }
         team.isFriendlyFireAllowed = fileConfiguration["friendly_fire"].toString().toBoolean()
 

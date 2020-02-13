@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class ActivePointsCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createActivePoint(ID: String, dataProvider: AbstractDataProvider): ActivePoint {
-        return create(ID, dataProvider) as ActivePoint
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): ActivePoint {
+        return super.create(itemID, dataProvider) as ActivePoint
     }
 }

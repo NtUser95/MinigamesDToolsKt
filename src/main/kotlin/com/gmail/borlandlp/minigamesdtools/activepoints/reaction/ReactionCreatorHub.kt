@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class ReactionCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createReaction(ID: String, dataProvider: AbstractDataProvider): Reaction {
-        return create(ID, dataProvider) as Reaction
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): Reaction {
+        return super.create(itemID, dataProvider) as Reaction
     }
 }

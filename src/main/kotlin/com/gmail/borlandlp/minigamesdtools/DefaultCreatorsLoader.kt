@@ -40,7 +40,7 @@ import net.minecraft.server.v1_12_R1.EntityZombie
 import java.util.*
 
 class DefaultCreatorsLoader {
-    private val hubs: MutableMap<ConfigPath, CreatorHub?> = Hashtable()
+    private val hubs: MutableMap<ConfigPath, CreatorHub> = Hashtable()
 
     private fun linkCreators(path: ConfigPath) {
         instance!!.configProvider!!.getPoolContents(path).forEach { configEntity ->
@@ -71,38 +71,43 @@ class DefaultCreatorsLoader {
             Debug.LEVEL.NOTICE,
             "#.........................................#"
         )
+
         // hotbar slots
         try {
-            instance!!.hotbarItemCreatorHub!!.registerCreator(ExampleItemCreator())
-            instance!!.hotbarItemCreatorHub!!.registerCreator(ExampleGunCreator())
-            instance!!.hotbarItemCreatorHub!!.registerCreator(InventoryPageOpenRequesterCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR_ITEM.pseudoName)!!.registerCreator(ExampleItemCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR_ITEM.pseudoName)!!.registerCreator(ExampleGunCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR_ITEM.pseudoName)!!.registerCreator(InventoryPageOpenRequesterCreator())
             linkCreators(ConfigPath.HOTBAR_SLOTS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // hotbar
         try {
-            instance!!.hotbarCreatorHub!!.registerCreator(HeldHotbarCreator())
-            instance!!.hotbarCreatorHub!!.registerCreator(ItemInterractHotbarCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!.registerCreator(HeldHotbarCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!.registerCreator(ItemInterractHotbarCreator())
             linkCreators(ConfigPath.HOTBAR)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // scenario chain
         try {
-            instance!!.scenarioChainCreatorHub!!.registerCreator(DefaultScenarioChainCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO_CHAIN.pseudoName)!!.registerCreator(DefaultScenarioChainCreator())
             linkCreators(ConfigPath.SCENARIO_CHAIN)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // scenario
         try {
-            instance!!.scenarioCreatorHub!!.registerCreator(ExampleScenarioCreator())
-            instance!!.scenarioCreatorHub!!.registerCreator(ExampleTwoScenarioCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO.pseudoName)!!.registerCreator(ExampleScenarioCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO.pseudoName)!!.registerCreator(ExampleTwoScenarioCreator())
             linkCreators(ConfigPath.SCENARIO)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // Entity controllers
         instance!!.entityAPI!!.register(
             "test",
@@ -122,102 +127,114 @@ class DefaultCreatorsLoader {
             EntityEnderDragon::class.java,
             SkyDragon::class.java
         )
+
         // reaction
         try {
-            instance!!.reactionCreatorHub!!.registerCreator(TeamIncrementWinTicketsReactionCreator())
-            instance!!.reactionCreatorHub!!.registerCreator(ItemGiveReactionCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName)!!.registerCreator(TeamIncrementWinTicketsReactionCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName)!!.registerCreator(ItemGiveReactionCreator())
             linkCreators(ConfigPath.ACTIVE_POINT_REACTIONS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // behavior
         try {
-            instance!!.behaviorCreatorHub!!.registerCreator(ExampleBehaviorCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.BEHAVIOR.pseudoName)!!.registerCreator(ExampleBehaviorCreator())
             linkCreators(ConfigPath.ACTIVE_POINT_BEHAVIORS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // active_point
         try {
-            instance!!.activePointsCreatorHub!!.registerCreator(PrimitiveEntityCreator())
-            instance!!.activePointsCreatorHub!!.registerCreator(PrimitivePointCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ACTIVE_POINTS.pseudoName)!!.registerCreator(PrimitiveEntityCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ACTIVE_POINTS.pseudoName)!!.registerCreator(PrimitivePointCreator())
             linkCreators(ConfigPath.ACTIVE_POINT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // team
         try {
-            instance!!.teamCreatorHub!!.registerCreator(ExampleTeamCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.TEAM.pseudoName)!!.registerCreator(ExampleTeamCreator())
             linkCreators(ConfigPath.TEAMS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // lobby
         try {
-            instance!!.arenaLobbyCreatorHub!!.registerCreator(StarterLobbyCreator())
-            instance!!.arenaLobbyCreatorHub!!.registerCreator(ExampleRespawnLobbyCreator())
-            instance!!.arenaLobbyCreatorHub!!.registerCreator(ExampleSpectatorLobbyCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.registerCreator(StarterLobbyCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.registerCreator(ExampleRespawnLobbyCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName)!!.registerCreator(ExampleSpectatorLobbyCreator())
             linkCreators(ConfigPath.ARENA_LOBBY)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // inventory gui
         try {
-            instance!!.inventoryGUICreatorHub!!.registerCreator(DefaultViewInventoryCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI.pseudoName)!!.registerCreator(DefaultViewInventoryCreator())
             linkCreators(ConfigPath.INVENTORY_GUI)
-            instance!!.inventoryGuiSlotCreatorHub!!.registerCreator(ExampleInventorySlotCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI_SLOT.pseudoName)!!.registerCreator(ExampleInventorySlotCreator())
             linkCreators(ConfigPath.INVENTORY_GUI_SLOT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // GUIProvider
         try {
-            instance!!.guiCreatorHub!!.registerCreator(BossbarExampleCreator())
-            instance!!.guiCreatorHub!!.registerCreator(ScoreboardExampleCreator())
-            instance!!.guiCreatorHub!!.registerRouteId2Creator(
+            instance!!.creatorsRegistry.get(DefaultCreators.DISPLAY_GUI.pseudoName)!!.registerCreator(BossbarExampleCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.DISPLAY_GUI.pseudoName)!!.registerCreator(ScoreboardExampleCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.DISPLAY_GUI.pseudoName)!!.registerRouteId2Creator(
                 "BossbarExample",
                 "bossbar_example"
             )
-            instance!!.guiCreatorHub!!.registerRouteId2Creator(
+            instance!!.creatorsRegistry.get(DefaultCreators.DISPLAY_GUI.pseudoName)!!.registerRouteId2Creator(
                 "ScoreboardExample",
                 "scoreboard_example"
             )
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // arena
         try {
-            instance!!.arenaCreatorHub!!.registerCreator(ExampleArenaCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.ARENA.pseudoName)!!.registerCreator(ExampleArenaCreator())
             linkCreators(ConfigPath.ARENA_FOLDER)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // server lobby
         try {
-            instance!!.lobbyCreatorHub!!.registerCreator(ExampleLobbyCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.SERVER_LOBBY.pseudoName)!!.registerCreator(ExampleLobbyCreator())
             linkCreators(ConfigPath.SERVER_LOBBY)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // conditions
         try {
-            instance!!.conditionsCreatorHub!!.registerCreator(ExampleConditionCreator())
-            instance!!.conditionsCreatorHub!!.registerCreator(EmptyInventoryConditionCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.CONDITION.pseudoName)!!.registerCreator(ExampleConditionCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.CONDITION.pseudoName)!!.registerCreator(EmptyInventoryConditionCreator())
             linkCreators(ConfigPath.CONDITIONS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // bullets
         try {
-            instance!!.bulletCreatorHub!!.registerCreator(GhostBulletCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.BULLET.pseudoName)!!.registerCreator(GhostBulletCreator())
             linkCreators(ConfigPath.BULLETS)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         // ArenaCommandWatcher
         try {
-            instance!!.commandWatcherCreatorHub!!.registerCreator(DefaultWatcherCreator())
-            instance!!.commandWatcherCreatorHub!!.registerRouteId2Creator(
+            instance!!.creatorsRegistry.get(DefaultCreators.COMMAND_WATCHER.pseudoName)!!.registerCreator(DefaultWatcherCreator())
+            instance!!.creatorsRegistry.get(DefaultCreators.COMMAND_WATCHER.pseudoName)!!.registerRouteId2Creator(
                 "default_command_watcher",
                 "default_command_watcher"
             )
@@ -227,20 +244,20 @@ class DefaultCreatorsLoader {
     }
 
     init {
-        hubs[ConfigPath.HOTBAR_SLOTS] = instance!!.hotbarItemCreatorHub
-        hubs[ConfigPath.HOTBAR] = instance!!.hotbarCreatorHub
-        hubs[ConfigPath.SCENARIO_CHAIN] = instance!!.scenarioChainCreatorHub
-        hubs[ConfigPath.SCENARIO] = instance!!.scenarioCreatorHub
-        hubs[ConfigPath.ACTIVE_POINT_REACTIONS] = instance!!.reactionCreatorHub
-        hubs[ConfigPath.ACTIVE_POINT_BEHAVIORS] = instance!!.behaviorCreatorHub
-        hubs[ConfigPath.ACTIVE_POINT] = instance!!.activePointsCreatorHub
-        hubs[ConfigPath.ARENA_LOBBY] = instance!!.arenaLobbyCreatorHub
-        hubs[ConfigPath.INVENTORY_GUI] = instance!!.inventoryGUICreatorHub
-        hubs[ConfigPath.INVENTORY_GUI_SLOT] = instance!!.inventoryGuiSlotCreatorHub
-        hubs[ConfigPath.ARENA_FOLDER] = instance!!.arenaCreatorHub
-        hubs[ConfigPath.SERVER_LOBBY] = instance!!.lobbyCreatorHub
-        hubs[ConfigPath.CONDITIONS] = instance!!.conditionsCreatorHub
-        hubs[ConfigPath.TEAMS] = instance!!.teamCreatorHub
-        hubs[ConfigPath.BULLETS] = instance!!.bulletCreatorHub
+        hubs[ConfigPath.HOTBAR_SLOTS] = instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR_ITEM.pseudoName) as CreatorHub
+        hubs[ConfigPath.HOTBAR] = instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName) as CreatorHub
+        hubs[ConfigPath.SCENARIO_CHAIN] = instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO_CHAIN.pseudoName) as CreatorHub
+        hubs[ConfigPath.SCENARIO] = instance!!.creatorsRegistry.get(DefaultCreators.SCENARIO.pseudoName) as CreatorHub
+        hubs[ConfigPath.ACTIVE_POINT_REACTIONS] = instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName) as CreatorHub
+        hubs[ConfigPath.ACTIVE_POINT_BEHAVIORS] = instance!!.creatorsRegistry.get(DefaultCreators.BEHAVIOR.pseudoName) as CreatorHub
+        hubs[ConfigPath.ACTIVE_POINT] = instance!!.creatorsRegistry.get(DefaultCreators.ACTIVE_POINTS.pseudoName) as CreatorHub
+        hubs[ConfigPath.ARENA_LOBBY] = instance!!.creatorsRegistry.get(DefaultCreators.ARENA_LOBBY.pseudoName) as CreatorHub
+        hubs[ConfigPath.INVENTORY_GUI] = instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI.pseudoName) as CreatorHub
+        hubs[ConfigPath.INVENTORY_GUI_SLOT] = instance!!.creatorsRegistry.get(DefaultCreators.INVENTORY_GUI_SLOT.pseudoName) as CreatorHub
+        hubs[ConfigPath.ARENA_FOLDER] = instance!!.creatorsRegistry.get(DefaultCreators.ARENA.pseudoName) as CreatorHub
+        hubs[ConfigPath.SERVER_LOBBY] = instance!!.creatorsRegistry.get(DefaultCreators.SERVER_LOBBY.pseudoName) as CreatorHub
+        hubs[ConfigPath.CONDITIONS] = instance!!.creatorsRegistry.get(DefaultCreators.CONDITION.pseudoName) as CreatorHub
+        hubs[ConfigPath.TEAMS] = instance!!.creatorsRegistry.get(DefaultCreators.TEAM.pseudoName) as CreatorHub
+        hubs[ConfigPath.BULLETS] = instance!!.creatorsRegistry.get(DefaultCreators.BULLET.pseudoName) as CreatorHub
     }
 }

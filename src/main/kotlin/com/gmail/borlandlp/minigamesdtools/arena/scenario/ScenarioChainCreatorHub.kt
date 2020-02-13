@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class ScenarioChainCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createChain(ID: String, dataProvider: AbstractDataProvider): ScenarioChainController {
-        return create(ID, dataProvider) as ScenarioChainController
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): ScenarioChainController {
+        return super.create(itemID, dataProvider) as ScenarioChainController
     }
 }

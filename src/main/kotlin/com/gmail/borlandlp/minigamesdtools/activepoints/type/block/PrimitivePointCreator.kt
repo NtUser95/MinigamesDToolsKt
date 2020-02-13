@@ -2,6 +2,7 @@ package com.gmail.borlandlp.minigamesdtools.activepoints.type.block
 
 import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.Debug.print
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.activepoints.ActivePoint
 import com.gmail.borlandlp.minigamesdtools.activepoints.behaviors.Behavior
@@ -70,10 +71,10 @@ class PrimitivePointCreator : Creator() {
                 val rDataProvider: AbstractDataProvider = DataProvider()
                 rDataProvider["active_point_instance"] = activePoint
                 damageHandlers.add(
-                    instance!!.reactionCreatorHub!!.createReaction(
+                    instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName)!!.create(
                         handler_name,
                         rDataProvider
-                    )
+                    ) as Reaction
                 )
             }
             activePoint.setReaction(ReactionReason.DAMAGE, damageHandlers)
@@ -101,10 +102,10 @@ class PrimitivePointCreator : Creator() {
                 val rDataProvider: AbstractDataProvider = DataProvider()
                 rDataProvider["active_point_instance"] = activePoint
                 intersectHandlers.add(
-                    instance!!.reactionCreatorHub!!.createReaction(
+                    instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName)!!.create(
                         handler_name,
                         rDataProvider
-                    )
+                    ) as Reaction
                 )
             }
             activePoint.setReaction(ReactionReason.INTERSECT, intersectHandlers)
@@ -135,10 +136,10 @@ class PrimitivePointCreator : Creator() {
                 val rDataProvider: AbstractDataProvider = DataProvider()
                 rDataProvider["active_point_instance"] = activePoint
                 interactHandlers.add(
-                    instance!!.reactionCreatorHub!!.createReaction(
+                    instance!!.creatorsRegistry.get(DefaultCreators.REACTION.pseudoName)!!.create(
                         handler_name,
                         rDataProvider
-                    )
+                    ) as Reaction
                 )
             }
             activePoint.setReaction(ReactionReason.INTERACT, interactHandlers)
@@ -167,10 +168,10 @@ class PrimitivePointCreator : Creator() {
             val rDataProvider: AbstractDataProvider = DataProvider()
             rDataProvider["active_point_instance"] = activePoint
             behaviors.add(
-                instance!!.behaviorCreatorHub!!.createBehavior(
+                instance!!.creatorsRegistry.get(DefaultCreators.BEHAVIOR.pseudoName)!!.create(
                     handler_name,
                     rDataProvider
-                )
+                ) as Behavior
             )
         }
         activePoint.behaviors = behaviors

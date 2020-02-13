@@ -3,6 +3,7 @@ package com.gmail.borlandlp.minigamesdtools.arena
 import com.gmail.borlandlp.minigamesdtools.APIComponent
 import com.gmail.borlandlp.minigamesdtools.Debug
 import com.gmail.borlandlp.minigamesdtools.Debug.print
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.instance
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools.Companion.prefix
 import com.gmail.borlandlp.minigamesdtools.arena.exceptions.ArenaAlreadyAddedException
@@ -37,7 +38,7 @@ class ArenaManager : APIComponent, ArenaAPI {
         for (arenaName in reg2Load) {
             try {
                 print(Debug.LEVEL.NOTICE, "Start load arena '$arenaName'")
-                arena = instance!!.arenaCreatorHub!!.createArena(arenaName, DataProvider())
+                arena = instance!!.creatorsRegistry.get(DefaultCreators.ARENA.pseudoName)!!.create(arenaName, DataProvider()) as ArenaBase
                 try {
                     arena.initializeComponents()
                 } catch (e: ArenaAlreadyInitializedException) {
@@ -77,7 +78,7 @@ class ArenaManager : APIComponent, ArenaAPI {
         mArenas.remove(arenaName)
 
         val newInstance: ArenaBase = try {
-            instance!!.arenaCreatorHub!!.createArena(arenaName, DataProvider())
+            instance!!.creatorsRegistry.get(DefaultCreators.ARENA.pseudoName)!!.create(arenaName, DataProvider()) as ArenaBase
         } catch (e: Exception) {
             e.printStackTrace()
             return

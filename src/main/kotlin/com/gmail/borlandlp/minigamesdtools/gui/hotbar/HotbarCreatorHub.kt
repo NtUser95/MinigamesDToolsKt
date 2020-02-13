@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class HotbarCreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createHotbar(id: String, dataProvider: AbstractDataProvider): Hotbar {
-        return create(id, dataProvider) as Hotbar
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): Hotbar {
+        return super.create(itemID, dataProvider) as Hotbar
     }
 }

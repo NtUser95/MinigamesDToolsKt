@@ -5,7 +5,7 @@ import com.gmail.borlandlp.minigamesdtools.creator.CreatorHub
 
 class InventoryGUICreatorHub : CreatorHub() {
     @Throws(Exception::class)
-    fun createInventory(ID: String, dataProvider: AbstractDataProvider): DrawableInventory {
-        return create(ID, dataProvider) as DrawableInventory
+    override fun create(itemID: String, dataProvider: AbstractDataProvider): DrawableInventory {
+        return super.create(itemID, dataProvider) as DrawableInventory
     }
 }

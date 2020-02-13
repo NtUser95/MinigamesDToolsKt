@@ -1,6 +1,7 @@
 package com.gmail.borlandlp.minigamesdtools.lobby
 
 import com.gmail.borlandlp.minigamesdtools.Debug
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools
 import com.gmail.borlandlp.minigamesdtools.arena.ArenaBase
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
@@ -54,19 +55,22 @@ abstract class ServerLobby {
      * TODO: Зачем здесь это?
      */
     private fun applyHotbar(player: Player): Boolean {
-        var hotbar: Hotbar?
         try {
-            hotbar = MinigamesDTools.instance!!.hotbarCreatorHub!!
-                .createHotbar(hotbarID!!, object : DataProvider() {
+            MinigamesDTools.instance!!.creatorsRegistry.get(DefaultCreators.HOTBAR.pseudoName)!!
+                .create(hotbarID!!, object : DataProvider() {
                     init {
                         this["player"] = player
                     }
-                })
+                }).apply {
+                    if (this is Hotbar) {
+                        MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(this, player)
+                    }
+                }
         } catch (e: Exception) {
             e.printStackTrace()
             return false
         }
-        MinigamesDTools.instance!!.hotbarAPI!!.bindHotbar(hotbar, player)
+
         return true
     }
 

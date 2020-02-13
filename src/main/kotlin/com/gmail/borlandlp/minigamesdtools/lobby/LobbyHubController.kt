@@ -2,6 +2,7 @@ package com.gmail.borlandlp.minigamesdtools.lobby
 
 import com.gmail.borlandlp.minigamesdtools.APIComponent
 import com.gmail.borlandlp.minigamesdtools.Debug
+import com.gmail.borlandlp.minigamesdtools.DefaultCreators
 import com.gmail.borlandlp.minigamesdtools.MinigamesDTools
 import com.gmail.borlandlp.minigamesdtools.config.ConfigPath
 import com.gmail.borlandlp.minigamesdtools.creator.DataProvider
@@ -79,10 +80,10 @@ class LobbyHubController : APIComponent, LobbyServerAPI {
                     "Load ServerLobby[ID:" + configEntity.id + "]"
                 )
                 register(
-                    MinigamesDTools.instance!!.lobbyCreatorHub!!.createLobby(
+                    MinigamesDTools.instance!!.creatorsRegistry.get(DefaultCreators.SERVER_LOBBY.pseudoName)!!.create(
                         configEntity.id,
                         DataProvider()
-                    )
+                    ) as ServerLobby
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
